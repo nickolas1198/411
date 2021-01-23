@@ -1,18 +1,16 @@
+using _411Project.Web.Data;
+using _411Project.Web.Features.Authentication;
+using System.Linq;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 
 namespace _411Project.Web
 {
@@ -25,15 +23,20 @@ namespace _411Project.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMediatR(Assembly.GetExecutingAssembly());
+            //services.AddMediatR(Assembly.GetExecutingAssembly());
+
+            services.AddDbContext<DataContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DataContext")));
 
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<DataContext>();
 
             services.AddControllers();
 
@@ -46,6 +49,10 @@ namespace _411Project.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            MigrateDb(app);
+            //AddRoles(app).Wait();
+            //AddUsers(app).Wait();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -77,6 +84,51 @@ namespace _411Project.Web
                     //spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+        }
+
+        private static void MigrateDb(IApplicationBuilder app)
+        {
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            var context = serviceScope.ServiceProvider.GetService<DataContext>();
+            context.Database.Migrate();
+        }
+
+        private static async Task AddRoles(IApplicationBuilder app)
+        {
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+            var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<Role>>();
+            
+            if (roleManager.Roles.Any())
+            {
+                return;
+            }
+
+            await roleManager.CreateAsync(new Role { Name = Roles.User });
+        }
+
+        private static async Task AddUsers(IApplicationBuilder app)
+        {
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+            var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+            var dataContext = serviceScope.ServiceProvider.GetService<DataContext>();
+
+            if (userManager.Users.Any())
+            {
+                return;
+            }
+
+            await CreateUser(dataContext, userManager, "user", Roles.User);
+        }
+
+        private static async Task CreateUser(DataContext dataContext, UserManager<User> userManager, string email, string role)
+        {
+            const string password = "Password1337!";
+            var user = new User { Email = email};
+            
+            await userManager.CreateAsync(user, password);
+            await userManager.AddToRoleAsync(user, role);
         }
     }
 }
