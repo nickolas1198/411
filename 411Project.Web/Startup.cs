@@ -86,6 +86,7 @@ namespace _411Project.Web
             });
         }
 
+        // TODO: Should eventually move everything below here into a different file.
         private static void MigrateDb(IApplicationBuilder app)
         {
             using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
