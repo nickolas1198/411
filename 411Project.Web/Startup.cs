@@ -1,11 +1,10 @@
 using _411Project.Web.Data;
 using _411Project.Web.Features.Authentication;
-using System.Linq;
+using _411Project.Web.Features.DemoSeeding;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -64,11 +63,10 @@ namespace _411Project.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             MigrateDb(app);
-            AddRoles(app).Wait();
-            AddUsers(app).Wait();
 
             if (env.IsDevelopment())
             {
+                SeedDemoRolesUsers.SeedDemoRolesAndUsersAsync(app).Wait();
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "_411Project.Web v1"));
@@ -99,61 +97,11 @@ namespace _411Project.Web
                 }
             });
         }
-
-        // TODO: Should eventually move everything below here into a different file.
         private static void MigrateDb(IApplicationBuilder app)
         {
             using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
             var context = serviceScope.ServiceProvider.GetService<DataContext>();
             context.Database.Migrate();
-        }
-
-        private static async Task AddRoles(IApplicationBuilder app)
-        {
-            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
-
-            var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<Role>>();
-            
-            if (roleManager.Roles.Any())
-            {
-                return;
-            }
-
-            await roleManager.CreateAsync(new Role { Name = Roles.User });
-        }
-
-        private static async Task AddUsers(IApplicationBuilder app)
-        {
-            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
-
-            var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
-            var dataContext = serviceScope.ServiceProvider.GetService<DataContext>();
-
-            if (userManager.Users.Any())
-            {
-                return;
-            }
-
-            await CreateUser(dataContext, userManager, "demoEmail@gmail.com", Roles.User);
-        }
-
-        private static async Task CreateUser(DataContext dataContext, UserManager<User> userManager, string email, string role)
-        {
-            const string password = "Password1337!";
-            var user = new User 
-            { 
-                UserName = email,
-                Email = email
-            };
-
-            dataContext.Set<User>().Add(new User
-            {
-                UserName = user.Email,
-                Email = user.Email
-            });
-            await dataContext.SaveChangesAsync();
-            await userManager.CreateAsync(user, password);
-            await userManager.AddToRoleAsync(user, role);
         }
     }
 }
