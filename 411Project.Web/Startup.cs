@@ -38,6 +38,20 @@ namespace _411Project.Web
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<DataContext>();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Events.OnRedirectToAccessDenied = context =>
+                {
+                    context.Response.StatusCode = 403;
+                    return Task.CompletedTask;
+                };
+                options.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
+            });
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
@@ -50,8 +64,8 @@ namespace _411Project.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             MigrateDb(app);
-            //AddRoles(app).Wait();
-            //AddUsers(app).Wait();
+            AddRoles(app).Wait();
+            AddUsers(app).Wait();
 
             if (env.IsDevelopment())
             {
@@ -120,14 +134,24 @@ namespace _411Project.Web
                 return;
             }
 
-            await CreateUser(dataContext, userManager, "user", Roles.User);
+            await CreateUser(dataContext, userManager, "demoEmail@gmail.com", Roles.User);
         }
 
         private static async Task CreateUser(DataContext dataContext, UserManager<User> userManager, string email, string role)
         {
             const string password = "Password1337!";
-            var user = new User { Email = email};
-            
+            var user = new User 
+            { 
+                UserName = email,
+                Email = email
+            };
+
+            dataContext.Set<User>().Add(new User
+            {
+                UserName = user.Email,
+                Email = user.Email
+            });
+            await dataContext.SaveChangesAsync();
             await userManager.CreateAsync(user, password);
             await userManager.AddToRoleAsync(user, role);
         }
