@@ -1,5 +1,6 @@
 ﻿using _411Project.Web.Data;
 using _411Project.Web.Features.Authentication;
+using _411Project.Web.Features.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -47,28 +48,15 @@ namespace _411Project.Web.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> Login(LoginDto dto)
+        public async Task<ActionResult<UserDto>> Login(LoginRequest loginRequest)
         {
-            // checks if user exist
-            var user = await userManager.FindByNameAsync(dto.Email); 
-            if (user == null)
+            var result = await Mediator.Send(loginRequest);
+            if (result == null)
             {
                 return BadRequest();
             }
 
-            // checks password
-            var result = await signInManager.CheckPasswordSignInAsync(user, dto.Password, true); 
-            if (!result.Succeeded)
-            {
-                return BadRequest();
-            }
-
-            // log user in
-            await signInManager.SignInAsync(user, false, "Password");
-            return Ok(new UserDto
-            {
-                Email = user.Email
-            });
+            return Ok(result);
         }
 
         [HttpPost("logout")]
