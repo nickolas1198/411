@@ -1,5 +1,6 @@
 ﻿using _411Project.Web.Data;
 using _411Project.Web.Features.Authentication;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,9 +19,11 @@ namespace _411Project.Web.Controllers
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly DataContext dataContext;
+        public IMediator Mediator { get; set; }
 
-        public AuthenticationController(UserManager<User> userManager, SignInManager<User> signInManager, DataContext dataContext)
+        public AuthenticationController(IMediator mediator, UserManager<User> userManager, SignInManager<User> signInManager, DataContext dataContext)
         {
+            this.Mediator = mediator;
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.dataContext = dataContext;

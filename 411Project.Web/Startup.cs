@@ -10,6 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System;
+using System.Linq;
 
 namespace _411Project.Web
 {
@@ -21,10 +24,11 @@ namespace _411Project.Web
         }
 
         public IConfiguration Configuration { get; }
+        private static readonly Assembly assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.FullName.Contains("411Project.Web"));
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddMediatR(typeof(Startup).Assembly, assembly);
 
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DataContext")));
