@@ -282,6 +282,7 @@ logs
 
 node_modules
 bower_components
+411Project.Web/client-app/.eslintcache
 
 *.sublime*
 
@@ -527,3 +528,4 @@ MigrationBackup/
 .ionide/
 
 # End of https://www.toptal.com/developers/gitignore/api/aspnetcore,react,yarn,visualstudio,visualstudiocode
+
