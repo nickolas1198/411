@@ -1,16 +1,18 @@
 using _411Project.Web.Data;
 using _411Project.Web.Features.Authentication;
-using System.Linq;
+using _411Project.Web.Features.DemoSeeding;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System;
+using System.Linq;
 
 namespace _411Project.Web
 {
@@ -22,10 +24,11 @@ namespace _411Project.Web
         }
 
         public IConfiguration Configuration { get; }
+        private static readonly Assembly assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.FullName.Contains("411Project.Web"));
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddMediatR(typeof(Startup).Assembly, assembly);
 
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DataContext")));
@@ -37,6 +40,20 @@ namespace _411Project.Web
 
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<DataContext>();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Events.OnRedirectToAccessDenied = context =>
+                {
+                    context.Response.StatusCode = 403;
+                    return Task.CompletedTask;
+                };
+                options.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
+            });
 
             services.AddControllers();
 
@@ -50,11 +67,10 @@ namespace _411Project.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             MigrateDb(app);
-            //AddRoles(app).Wait();
-            //AddUsers(app).Wait();
 
             if (env.IsDevelopment())
             {
+                SeedDemoRolesUsers.SeedDemoRolesAndUsersAsync(app).Wait();
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "_411Project.Web v1"));
@@ -85,50 +101,11 @@ namespace _411Project.Web
                 }
             });
         }
-
         private static void MigrateDb(IApplicationBuilder app)
         {
             using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
             var context = serviceScope.ServiceProvider.GetService<DataContext>();
             context.Database.Migrate();
-        }
-
-        private static async Task AddRoles(IApplicationBuilder app)
-        {
-            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
-
-            var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<Role>>();
-            
-            if (roleManager.Roles.Any())
-            {
-                return;
-            }
-
-            await roleManager.CreateAsync(new Role { Name = Roles.User });
-        }
-
-        private static async Task AddUsers(IApplicationBuilder app)
-        {
-            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
-
-            var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
-            var dataContext = serviceScope.ServiceProvider.GetService<DataContext>();
-
-            if (userManager.Users.Any())
-            {
-                return;
-            }
-
-            await CreateUser(dataContext, userManager, "user", Roles.User);
-        }
-
-        private static async Task CreateUser(DataContext dataContext, UserManager<User> userManager, string email, string role)
-        {
-            const string password = "Password1337!";
-            var user = new User { Email = email};
-            
-            await userManager.CreateAsync(user, password);
-            await userManager.AddToRoleAsync(user, role);
         }
     }
 }
