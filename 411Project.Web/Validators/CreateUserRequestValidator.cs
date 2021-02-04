@@ -13,9 +13,10 @@ namespace _411Project.Web.Validators
             // - at least one lowercase letter
             // - at least one digit
             // - at least one non-word character
-            var passwordRegex = new Regex(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W])$");
-
             var containsDigit = new Regex(@"^(?=.*[0-9])");
+            var containsUpperCase = new Regex(@"^(?=.*[A-Z])");
+            var containsLowerCase = new Regex(@"^(?=.*[a-z])");
+            var containsSpecialChar = new Regex(@"^(?=.*[\W])");
 
             RuleFor(x => x.Email)
                 .EmailAddress()
@@ -28,18 +29,23 @@ namespace _411Project.Web.Validators
                 .NotNull()
                 .NotEmpty()
 
-                .MinimumLength(6)
-                .WithMessage("Password must contain at least 6 characters.")
-
                 .MaximumLength(50)
                 .WithMessage("Password cannot be longer than 50 characters.")
 
+                .MinimumLength(6)
+                .WithMessage("6 characters.")
+                
                 .Matches(containsDigit)
-                .WithMessage("Password must contain at least:\n" + 
-                    "- one lowercase letter\n" +
-                    "- one lowercase letter\n" +
-                    "- one digit\n" +
-                    "- one special character");
+                .WithMessage("one digit.")
+                
+                .Matches(containsUpperCase)
+                .WithMessage("one uppercase letter.")
+
+                .Matches(containsLowerCase)
+                .WithMessage("one lowercase letter.")
+                
+                .Matches(containsSpecialChar)
+                .WithMessage("one special character");
         }
     }
 }
