@@ -40,16 +40,14 @@ namespace _411Project.Web.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        [HttpDelete]
+        public async Task<ActionResult> Delete()
         {
-            var user = await _dataContext.Set<User>().FirstOrDefaultAsync(x => x.Id == id);
+            var user = await _dataContext.Set<User>().FirstOrDefaultAsync(x => x.Email == User.Identity.Name);
             if (user == null)
             {
                 return NotFound();
             }
-
-            //var currUser = User.Identity.I
 
             _dataContext.Set<User>().Remove(user);
             await _dataContext.SaveChangesAsync();

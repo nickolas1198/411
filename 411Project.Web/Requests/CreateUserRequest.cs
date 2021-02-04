@@ -33,7 +33,7 @@ namespace _411Project.Web.Features.Authentication
             var emailInUse = _dataContext.Set<User>()
                 .Where(x => x.Email == newUser.Email);
 
-            if (emailInUse != null)
+            if (emailInUse == null)
             {
                 return null;
             }
