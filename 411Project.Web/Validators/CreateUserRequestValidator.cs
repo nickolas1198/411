@@ -1,5 +1,6 @@
 ﻿using _411Project.Web.Features.Authentication;
 using FluentValidation;
+using System.Text.RegularExpressions;
 
 namespace _411Project.Web.Validators
 {
@@ -12,7 +13,9 @@ namespace _411Project.Web.Validators
             // - at least one lowercase letter
             // - at least one digit
             // - at least one non-word character
-            var passwordRegex = @"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W])$";
+            var passwordRegex = new Regex(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W])$");
+
+            var containsDigit = new Regex(@"^(?=.*[0-9])");
 
             RuleFor(x => x.Email)
                 .EmailAddress()
@@ -31,7 +34,7 @@ namespace _411Project.Web.Validators
                 .MaximumLength(50)
                 .WithMessage("Password cannot be longer than 50 characters.")
 
-                .Matches(passwordRegex)
+                .Matches(containsDigit)
                 .WithMessage("Password must contain at least:\n" + 
                     "- one lowercase letter\n" +
                     "- one lowercase letter\n" +

@@ -1,6 +1,8 @@
-﻿using _411Project.Web.Features.Authentication;
+﻿using _411Project.Web.Data;
+using _411Project.Web.Features.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,19 +16,36 @@ namespace _411Project.Web.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        public IMediator Mediator { get; set; }
+        public IMediator _Mediator { get; set; }
+        private readonly DataContext _dataContext;
 
-        public UsersController(IMediator mediator)
+        public UsersController(IMediator mediator, DataContext dataContext)
         {
-            this.Mediator = mediator;
+            _Mediator = mediator;
+            _dataContext = dataContext;
         }
 
         // POST api/<UsersController>
         [HttpPost]
         public async Task<UserDto> Post([FromBody] CreateUserRequest userRequest)
         {
-            var result = await Mediator.Send(userRequest);
+            var result = await _Mediator.Send(userRequest);
             return result;
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var user = await _dataContext.Set<User>().FirstOrDefaultAsync(x => x.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.Set<User>().Remove(user);
+            await _dataContext.SaveChangesAsync();
+
+            return Ok();
         }
     }
 }
