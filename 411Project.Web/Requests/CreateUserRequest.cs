@@ -1,5 +1,7 @@
-﻿using MediatR;
+﻿using _411Project.Web.Data;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,10 +14,12 @@ namespace _411Project.Web.Features.Authentication
     public class CreateUserRequestHandler : IRequestHandler<CreateUserRequest, UserDto>
     {
         private readonly UserManager<User> _userManager;
+        private readonly DataContext _dataContext;
 
-        public CreateUserRequestHandler(UserManager<User> userManager)
+        public CreateUserRequestHandler(UserManager<User> userManager, DataContext dataContext)
         {
             _userManager = userManager;
+            _dataContext = dataContext;
         }
 
         public async Task<UserDto> Handle(CreateUserRequest request, CancellationToken cancellationToken)
@@ -25,6 +29,14 @@ namespace _411Project.Web.Features.Authentication
                 UserName = request.Email,
                 Email = request.Email,
             };
+
+            var emailInUse = _dataContext.Set<User>()
+                .Where(x => x.Email == newUser.Email);
+
+            if (emailInUse != null)
+            {
+                return null;
+            }
 
             await _userManager.CreateAsync(newUser, request.Password);
             await _userManager.AddToRoleAsync(newUser, Roles.User);

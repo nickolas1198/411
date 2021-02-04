@@ -27,10 +27,17 @@ namespace _411Project.Web.Controllers
 
         // POST api/<UsersController>
         [HttpPost]
-        public async Task<UserDto> Post([FromBody] CreateUserRequest userRequest)
+        public async Task<ActionResult<UserDto>> Post([FromBody] CreateUserRequest userRequest)
         {
             var result = await _Mediator.Send(userRequest);
-            return result;
+
+            // It would be nice for this code to not be in this file. We would probably need some 
+            // type of return message wrapper around the ActionResult.
+            if (result == null)
+            {
+                return Conflict("Email is already in use.");
+            }
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
@@ -41,6 +48,8 @@ namespace _411Project.Web.Controllers
             {
                 return NotFound();
             }
+
+            //var currUser = User.Identity.I
 
             _dataContext.Set<User>().Remove(user);
             await _dataContext.SaveChangesAsync();
