@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using _411Project.Web.Features.Judge;
-
+using Microsoft.IdentityModel.Tokens;
 
 namespace _411Project.Web.Controllers
 {
@@ -19,6 +20,7 @@ namespace _411Project.Web.Controllers
         public async Task<ActionResult<String>> Post(JudgeDto dto) // change <String> to a responseDto
         {
             var returnBody = "";
+            var apiKey = ConfigurationManager.AppSettings.Get("xRapidapiKey");
 
             var plainCodeBytes = System.Text.Encoding.UTF8.GetBytes(dto.source_code);
             var codeBase64EncodedString = System.Convert.ToBase64String(plainCodeBytes);
@@ -31,10 +33,10 @@ namespace _411Project.Web.Controllers
             {
                 Method = HttpMethod.Post,
                 RequestUri =
-                    new Uri("https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=true&wait=true&fields=stdout"),
+                    new Uri("https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=true&wait=true"),
                 Headers =
                 {
-                    {"x-rapidapi-key", ""},
+                    {"x-rapidapi-key", apiKey},
                     {"x-rapidapi-host", "judge0-ce.p.rapidapi.com"},
                 },
                 Content = new StringContent("{\r" +
