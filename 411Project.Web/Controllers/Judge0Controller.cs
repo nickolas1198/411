@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Configuration;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using _411Project.Web.Features.Requests;
 using MediatR;
+using Newtonsoft.Json.Linq;
 
 namespace _411Project.Web.Controllers
 {
@@ -20,7 +18,7 @@ namespace _411Project.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<String>> Post(Judge0Request judge0Request) // possibly change <String> to a responseDto
+        public async Task<ActionResult<JObject>> Post(Judge0Request judge0Request) // possibly change <String> to a responseDto
         {
             var result = await Mediator.Send(judge0Request);
 
