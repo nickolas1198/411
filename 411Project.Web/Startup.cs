@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System;
 using System.Linq;
+using FluentValidation.AspNetCore;
 
 namespace _411Project.Web
 {
@@ -29,6 +30,9 @@ namespace _411Project.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMediatR(typeof(Startup).Assembly, assembly);
+
+            services.AddMvcCore()
+                .AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DataContext")));
