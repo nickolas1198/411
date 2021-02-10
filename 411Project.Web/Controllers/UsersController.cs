@@ -3,9 +3,6 @@ using _411Project.Web.Features.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -16,12 +13,12 @@ namespace _411Project.Web.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        public IMediator _Mediator { get; set; }
+        public IMediator Mediator { get; set; }
         private readonly DataContext _dataContext;
 
         public UsersController(IMediator mediator, DataContext dataContext)
         {
-            _Mediator = mediator;
+            Mediator = mediator;
             _dataContext = dataContext;
         }
 
@@ -29,7 +26,7 @@ namespace _411Project.Web.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> Post([FromBody] CreateUserRequest userRequest)
         {
-            var result = await _Mediator.Send(userRequest);
+            var result = await Mediator.Send(userRequest);
 
             // It would be nice for this code to not be in this file. We would probably need some 
             // type of return message wrapper around the ActionResult.

@@ -2,13 +2,9 @@
 using System.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using _411Project.Web.Features.Judge;
-using Microsoft.IdentityModel.Tokens;
+using _411Project.Web.Features.Requests;
+using MediatR;
 
 namespace _411Project.Web.Controllers
 {
@@ -16,47 +12,19 @@ namespace _411Project.Web.Controllers
     [ApiController]
     public class Judge0Controller : ControllerBase
     {
-        [HttpPost]
-        public async Task<ActionResult<String>> Post(JudgeDto dto) // change <String> to a responseDto
+        public IMediator Mediator { get; set; }
+
+        public Judge0Controller(IMediator mediator)
         {
-            var returnBody = "";
-            var apiKey = ConfigurationManager.AppSettings.Get("xRapidapiKey");
+            Mediator = mediator;
+        }
 
-            var plainCodeBytes = System.Text.Encoding.UTF8.GetBytes(dto.source_code);
-            var codeBase64EncodedString = System.Convert.ToBase64String(plainCodeBytes);
+        [HttpPost]
+        public async Task<ActionResult<String>> Post(Judge0Request judge0Request) // possibly change <String> to a responseDto
+        {
+            var result = await Mediator.Send(judge0Request);
 
-            var plainStdinBytes = System.Text.Encoding.UTF8.GetBytes(dto.stdin);
-            var stdinBase64EncodedString = System.Convert.ToBase64String(plainStdinBytes);
-            
-            var client = new HttpClient();
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Post,
-                RequestUri =
-                    new Uri("https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=true&wait=true"),
-                Headers =
-                {
-                    {"x-rapidapi-key", apiKey},
-                    {"x-rapidapi-host", "judge0-ce.p.rapidapi.com"},
-                },
-                Content = new StringContent("{\r" +
-                                            "\"language_id\": 70,\r" +
-                                            "\"source_code\": \"" + codeBase64EncodedString + "\",\r" +
-                                            "\"stdin\": \"" + stdinBase64EncodedString + "\"\r}")
-                {
-                    Headers =
-                    {
-                        ContentType = new MediaTypeHeaderValue("application/json")
-                    }
-                }
-            };
-            using (var response = await client.SendAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                returnBody = await response.Content.ReadAsStringAsync();
-            }
-
-            return Ok(returnBody);
+            return Ok(result);
         }
     }
 }
