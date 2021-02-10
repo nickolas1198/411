@@ -22,9 +22,22 @@ namespace _411Project.Web.Requests.Judge0Request
         public static JObject PrepResponse(string s)
         {
             var jsonResponse = JObject.Parse(s);
-            jsonResponse[Judge0Constants.Stdout] = 
-                ConvertFromBase64((string) jsonResponse[Judge0Constants.Stdout]);
+
+            // First check if JSON property is null. If not, then convert.
+            if ((string)jsonResponse[Judge0Constants.Stdout] != null)
+            {
+                jsonResponse[Judge0Constants.Stdout] =
+                    ConvertFromBase64((string)jsonResponse[Judge0Constants.Stdout]);
+            }
+
+            if ((string) jsonResponse[Judge0Constants.Stderr] != null)
+            {
+                jsonResponse[Judge0Constants.Stderr] =
+                    ConvertFromBase64((string)jsonResponse[Judge0Constants.Stderr]);
+            }
+            
             return jsonResponse;
         }
     }
 }
+ 

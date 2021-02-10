@@ -6,6 +6,11 @@ using _411Project.Web.Requests.Judge0RequestConfig;
 
 namespace _411Project.Web.Requests.Judge0Request
 {
+    /// <see>
+    /// Folllowing link for config_info and their default values.
+    /// Useful for advanced user options
+    /// https://ce.judge0.com/#system-and-configuration-configuration-info-get
+    /// </see>
     public static class PrepJudge0Request
     {
         public static string ConvertToBase64(string s)

@@ -18,7 +18,7 @@ namespace _411Project.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<JObject>> Post(Judge0Request judge0Request) // possibly change <String> to a responseDto
+        public async Task<ActionResult<JObject>> Post(Judge0Request judge0Request)
         {
             var result = await Mediator.Send(judge0Request);
 
