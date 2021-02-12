@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using _411Project.Web.Features.Judge;
 using _411Project.Web.Requests.Judge0RequestConfig;
 using Newtonsoft.Json.Linq;
 
@@ -14,29 +15,31 @@ namespace _411Project.Web.Requests.Judge0Request
         }
 
         /// <summary>
-        /// Preps the response before it is sent to user
+        /// Preps the response from the Judge0 API before it is sent to user
         /// </summary>
         /// <remarks>
-        /// Decode console output from Base64 to string
+        /// Decode console output/error from Base64 to string, and then map the
+        /// Judge0 API outputs to a JudgeResponseDto
         /// </remarks>
-        public static JObject PrepResponse(string s)
+        public static JudgeResponseDto PrepResponse(string judge0ApiResponseString)
         {
-            var jsonResponse = JObject.Parse(s);
+            var jsonResponse = JObject.Parse(judge0ApiResponseString);
+            var responseDto = new JudgeResponseDto();
 
-            // First check if JSON property is null. If not, then convert.
+            // First check if JSON property is null. Then convert and map to the dto
             if ((string)jsonResponse[Judge0Constants.Stdout] != null)
             {
-                jsonResponse[Judge0Constants.Stdout] =
+                responseDto.Stdout =
                     ConvertFromBase64((string)jsonResponse[Judge0Constants.Stdout]);
             }
 
             if ((string) jsonResponse[Judge0Constants.Stderr] != null)
             {
-                jsonResponse[Judge0Constants.Stderr] =
+                responseDto.Stderr =
                     ConvertFromBase64((string)jsonResponse[Judge0Constants.Stderr]);
             }
-            
-            return jsonResponse;
+
+            return responseDto;
         }
     }
 }
