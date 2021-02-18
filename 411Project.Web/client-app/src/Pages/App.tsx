@@ -1,16 +1,16 @@
 import React from "react";
 import "../Styles/App.css";
-import Navbar from '../components/Navbar';
-import {BrowserRouter as Router} from "react-router-dom";
+import Navbar from "../components/Navbar";
+import TextEditorGrid from "../components/TextEditorGrid/TextEditorGrid";
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
       <Router>
-      <Navbar/>
+        <Navbar />
+        <TextEditorGrid />
       </Router>
-      
-      <header className="App-header"></header>
     </div>
   );
 }
