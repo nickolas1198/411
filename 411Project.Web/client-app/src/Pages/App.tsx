@@ -3,11 +3,13 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "../Styles/App.css";
 
 import AppGrid from "../components/AppGrid/AppGrid";
+import Navbar from "../components/Navbar";
 
 function App() {
   return (
     <div className="App">
       <Router>
+        <Navbar />
         <AppGrid />
       </Router>
     </div>

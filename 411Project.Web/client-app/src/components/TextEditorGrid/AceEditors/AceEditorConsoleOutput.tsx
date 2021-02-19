@@ -11,6 +11,7 @@ const AceEditorConsoleOutput = () => (
     theme="solarized_dark"
     name="consoleOutput"
     width="auto"
+    height="50%"
     fontSize={16}
     showPrintMargin={false}
     readOnly={true}
