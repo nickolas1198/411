@@ -2,7 +2,8 @@ import AceEditor from "react-ace";
 import brace from "brace";
 
 import "brace/mode/csharp";
-
+import "brace/snippets/html";
+import "brace/ext/language_tools";
 import "brace/theme/solarized_dark";
 
 // setting the height in this way is kinda funky, but
