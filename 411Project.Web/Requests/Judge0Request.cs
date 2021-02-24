@@ -21,7 +21,7 @@ namespace _411Project.Web.Features.Requests
             // send request and await response
             using (var response = await client.SendAsync(sendRequest))
             {
-                response.EnsureSuccessStatusCode();
+                // response.EnsureSuccessStatusCode();
                 // Use cancellation token on ReadAsStringAsync() to handle errors maybe?
                 var returnBody = await response.Content.ReadAsStringAsync(); 
                 var responseDto = PrepJudge0Response.PrepResponse(returnBody);

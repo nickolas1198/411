@@ -5,7 +5,11 @@ import "brace/mode/csharp";
 
 import "brace/theme/solarized_dark";
 
-const AceEditorConsoleInput = () => (
+type consoleInputEditor = {
+  setConsoleInput: (input: string) => void;
+};
+
+const AceEditorConsoleInput = (props: consoleInputEditor) => (
   <AceEditor
     mode="csharp"
     theme="solarized_dark"
@@ -14,6 +18,7 @@ const AceEditorConsoleInput = () => (
     height="50%"
     fontSize={16}
     showPrintMargin={false}
+    onChange={(event) => props.setConsoleInput(event)}
   />
 );
 

@@ -39,8 +39,10 @@ namespace _411Project.Web
 
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/build";
+                configuration.RootPath = "client-app/build";
             });
+
+            services.AddCors();
 
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<DataContext>();
@@ -96,7 +98,7 @@ namespace _411Project.Web
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = "client-app";
 
                 if (env.IsDevelopment())
                 {

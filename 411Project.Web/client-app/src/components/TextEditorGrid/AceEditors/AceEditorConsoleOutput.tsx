@@ -2,10 +2,14 @@ import AceEditor from "react-ace";
 import brace from "brace";
 
 import "brace/mode/csharp";
-
 import "brace/theme/solarized_dark";
 
-const AceEditorConsoleOutput = () => (
+type AceEditorConsoleOutputProps = {
+  stdout: string;
+  stderr: string;
+};
+
+const AceEditorConsoleOutput = (props: AceEditorConsoleOutputProps) => (
   <AceEditor
     mode="csharp"
     theme="solarized_dark"
@@ -15,6 +19,7 @@ const AceEditorConsoleOutput = () => (
     fontSize={16}
     showPrintMargin={false}
     readOnly={true}
+    value={props.stdout ?? props.stderr}
   />
 );
 
