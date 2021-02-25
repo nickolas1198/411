@@ -5,7 +5,12 @@ import styled from 'styled-components';
 //navbar
 export const Nav = styled.nav`
   background: #000;
+  align-items:center;
   height: 80px;
+  position: absolute;
+  width: 100%;
+  top:0;
+  left:0;
   display: flex;
   justify-content: space-between;
   padding: 0.5rem calc((100vw - 1000px) / 2);
@@ -18,7 +23,7 @@ export const NavLink = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding: 6px 1rem;
+  padding:1rem 1rem;
   height: 100%;
   cursor: pointer;
   &:active {
@@ -26,31 +31,12 @@ export const NavLink = styled(Link)`
   }
 `;
 
-//bar icon
-export const Bars = styled(FaBars)`
-  display: none;
-  color: #fff;
-  
-  @media screen and (max-width: 768px) {
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(-100%, 75%);
-    font-size: 1.8rem;
-    cursor: pointer;
-  }
-  
-`;
-
 export const NavMenu = styled.div`
   display: flex;
   align-items: center;
   margin-right: -24px;
 
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
+
 `;
 
 export const NavBtn = styled.nav`
@@ -58,14 +44,14 @@ export const NavBtn = styled.nav`
   align-items: center;
   margin-right: 24px;
  
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
+
 `;
 
 export const NavBtnLink = styled(Link)`
   border-radius: 4px;
-  background: #256ce1;
+ /*} background: #256ce1;
+ */
+   background:linear-gradient(to right, #67b26b, #4ca2cb) !important;
   padding: 10px 22px;
   color: #fff;
   outline: none;

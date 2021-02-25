@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Dropdown from '../Dropdown';
 import {Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink} from './NavbarElements';
-import '../../../src/Styles/Navbar.css'
+import '../../../src/Styles/Navbar.css';
+import Example from '../languageDropDown';
 
 function Navbar() {
-
+   
     const [dropdown, setDropdown] = useState(false);
 
     const onMouseEnter = () => {
@@ -21,41 +22,38 @@ function Navbar() {
             setDropdown(false)
         }
     }
-
+    
     return (
-        <>
-        <Nav>
-          <NavLink to ="/">
-          <i class='fas fa-desktop fa-fw'/>
-              <h1>codePlay</h1>
-              
-          </NavLink>
-          <Bars/>
-            <NavMenu>
-                <NavLink to="/languages" activeStyle>
-                    Languages
-                </NavLink>
-                <NavLink to="/run" activeStyle>
-                 <i className ='fas fa-play fa-fw'/>Run
-                </NavLink>
-                <li className='nav-item' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                <NavLink  to="/file" activeStyle>
+        <div> 
+                <div class="ui navMenu">
+                    <NavLink to= "/">
+                    
+                    <i class='fas fa-desktop fa-fw'/>
+                    <h1 className ='navbar-logo'>codePlay</h1>
+                   
+                    </NavLink>
+                    <Example/>
+                    <a class="item">
+                    <i className ='fas fa-play fa-fw'/> Run (F9)
+                    </a>
+                    <li className='nav-item' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                    <a class="item">
                     File <i className ='fas fa-caret-down fa-fw'/>
-                </NavLink>
-                {dropdown && <Dropdown />}
-                </li>
-                <NavLink to="/settings" activeStyle>
-                    Settings <i className ='fas fa-caret-down fa-fw'/>
-                </NavLink>
+                    {dropdown && <Dropdown />}
+                    </a>
+                    </li>
+                    <a class="item">
+                        Settings <i className ='fas fa-caret-down fa-fw'/>
+                    </a>
+                    <NavBtn>
+                    <NavBtnLink to ="/signin">Sign In</NavBtnLink>
+                    <NavBtnLink to="/signup" >Sign Up</NavBtnLink>
+                    </NavBtn>
+                </div>
+            
 
-                
-            </NavMenu>
-            <NavBtn>
-                <NavBtnLink to ="/signin">Sign In</NavBtnLink>
-                <NavBtnLink to="/signup" activeStyle>Sign Up</NavBtnLink>
-            </NavBtn>
-        </Nav>
-        </>
+        
+        </div>
     );
 };
 
