@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import "../Styles/App.css";
-
-import Navbar from "../components/Navbar";
+import Navbar from '../components/Navbar';
+import {BrowserRouter as Router} from "react-router-dom";
 import TextEditorGrid from "../components/TextEditorGrid/TextEditorGrid";
-
 function App() {
   const [source_code, setSource_code] = useState("");
   const [stdin, setStdin] = useState("");
@@ -18,6 +17,7 @@ function App() {
         <TextEditorGrid />
       </Router>
     </div>
+    
   );
 }
 
