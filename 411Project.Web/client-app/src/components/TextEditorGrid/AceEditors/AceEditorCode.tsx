@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import AceEditor from "react-ace";
 import brace from "brace";
 
@@ -8,7 +7,7 @@ import "brace/ext/language_tools";
 import "brace/theme/solarized_dark";
 
 type sourceCodeEditor = {
-  lanuage?: string;
+  language?: string;
   setEditorCode: (code: string) => void;
 };
 
@@ -20,8 +19,8 @@ const AceEditorCode = (props: sourceCodeEditor) => {
       mode="csharp"
       theme="solarized_dark"
       name="codeWindow"
-      width="auto"
-      height="92vh"
+      width="100%"
+      height="100%"
       fontSize={16}
       showPrintMargin={false}
       highlightActiveLine={true}

@@ -11,7 +11,7 @@ export type Judge0Response = {
 };
 
 const Judge0ApiCall = (dto: Judge0Dto) => {
-  const language_id = 51; // hehe change this
+  const language_id = 51; // hehe change this. hardcoded to c# for testing
   const source_code = dto.sourceCode;
   const stdin = dto.stdin;
   const url = "https://localhost:5001/api/judge0Controller/sendRequest";
