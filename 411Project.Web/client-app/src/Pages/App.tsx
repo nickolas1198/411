@@ -1,15 +1,15 @@
 import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import "../Styles/App.css";
-import Navbar from '../components/Navbar';
-import {BrowserRouter as Router} from "react-router-dom";
+import TextEditorGrid from "../components/TextEditorGrid/TextEditorGrid";
+
 function App() {
   return (
     <div className="App">
       <Router>
-      <Navbar/>
+        <TextEditorGrid />
       </Router>
     </div>
-    
   );
 }
 

@@ -1,10 +1,6 @@
 ﻿using _411Project.Web.Features.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,9 +14,6 @@ namespace _411Project.Web.Features.Requests
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-
-        public virtual BadRequestResult BadRequest { get; }
-        public virtual OkResult Ok { get; }
 
         public LoginRequestHandler(UserManager<User> userManager, SignInManager<User> signInManager)
         {

@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,17 +15,15 @@ namespace _411Project.Web.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly UserManager<User> userManager;
-        private readonly SignInManager<User> signInManager;
-        private readonly DataContext dataContext;
+        private readonly SignInManager<User> _signInManager;
+        private readonly DataContext _dataContext;
         public IMediator Mediator { get; set; }
 
         public AuthenticationController(IMediator mediator, UserManager<User> userManager, SignInManager<User> signInManager, DataContext dataContext)
         {
-            this.Mediator = mediator;
-            this.userManager = userManager;
-            this.signInManager = signInManager;
-            this.dataContext = dataContext;
+            Mediator = mediator;
+            _signInManager = signInManager;
+            _dataContext = dataContext;
         }
 
         // this endpoint is used to automagically log the user in
@@ -38,7 +34,7 @@ namespace _411Project.Web.Controllers
         {
             var username = User.Identity.Name;
 
-            return await dataContext.Set<User>()
+            return await _dataContext.Set<User>()
                 .Where(x => x.UserName == username)
                 .Select(x => new UserDto
                 {
@@ -62,7 +58,7 @@ namespace _411Project.Web.Controllers
         [HttpPost("logout")]
         public async Task<ActionResult<UserDto>> Logout()
         {
-            await signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync();
             return Ok();
         }
     }

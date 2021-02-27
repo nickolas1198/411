@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System;
 using System.Linq;
+using FluentValidation.AspNetCore;
 
 namespace _411Project.Web
 {
@@ -30,13 +31,18 @@ namespace _411Project.Web
         {
             services.AddMediatR(typeof(Startup).Assembly, assembly);
 
+            services.AddMvcCore()
+                .AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<Startup>());
+
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DataContext")));
 
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/build";
+                configuration.RootPath = "client-app/build";
             });
+
+            services.AddCors();
 
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<DataContext>();
@@ -92,7 +98,7 @@ namespace _411Project.Web
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = "client-app";
 
                 if (env.IsDevelopment())
                 {

@@ -1,6 +1,6 @@
-import { FaBars } from 'react-icons/fa';
-import { NavLink as Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { FaBars } from "react-icons/fa";
+import { NavLink as Link } from "react-router-dom";
+import styled from "styled-components";
 
 //navbar
 export const Nav = styled.nav`
@@ -15,7 +15,6 @@ export const Nav = styled.nav`
   justify-content: space-between;
   padding: 0.5rem calc((100vw - 1000px) / 2);
   z-index: 10;
-
 `;
 //links on navbar
 export const NavLink = styled(Link)`
@@ -59,7 +58,7 @@ export const NavBtnLink = styled(Link)`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
-  
+
   margin-left: 24px;
   &:hover {
     transition: all 0.2s ease-in-out;
