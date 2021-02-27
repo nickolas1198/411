@@ -1,10 +1,14 @@
 import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import "../Styles/App.css";
+import TextEditorGrid from "../components/TextEditorGrid/TextEditorGrid";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">Hello Nick</header>
+      <Router>
+        <TextEditorGrid />
+      </Router>
     </div>
   );
 }

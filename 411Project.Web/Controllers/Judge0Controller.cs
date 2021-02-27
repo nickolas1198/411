@@ -6,7 +6,7 @@ using MediatR;
 
 namespace _411Project.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/judge0Controller")]
     [ApiController]
     public class Judge0Controller : ControllerBase
     {
@@ -17,7 +17,7 @@ namespace _411Project.Web.Controllers
             Mediator = mediator;
         }
 
-        [HttpPost]
+        [HttpPost("sendRequest")]
         public async Task<ActionResult<JudgeResponseDto>> Post(Judge0Request judge0Request)
         {
             var result = await Mediator.Send(judge0Request);

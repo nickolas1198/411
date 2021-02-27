@@ -1,0 +1,57 @@
+.navbar-logo {
+  padding-bottom: 20px;
+}
+
+.fa-desktop {
+  margin-left: 0.5rem;
+  padding-right: 10px;
+  font-size: 2rem;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 90vh;
+  position: absolute;
+  top: 80px;
+  left: -100%;
+  opacity: 1;
+  transition: all 0.5s ease;
+}
+
+.nav-links:hover {
+  background-color: #1888ff;
+  border-radius: 0;
+}
+
+.item {
+  color: #15cdfc !important;
+  user-select: none;
+}
+.item:hover {
+  background-color: #1888ff !important;
+  border-radius: 4px;
+  transition: all 0.2s ease-out;
+}
+.navMenu {
+  background-color: #000 !important;
+  align-items: center;
+  height: 60px;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem calc((100vw - 1000px) / 2);
+  z-index: 10;
+}
+/*Language Dropdown Stuff*/
+.selection {
+  background-color: #282c34 !important;
+  color: #15cdfc !important;
+}
+.menu {
+  background-color: #282c34 !important;
+}
