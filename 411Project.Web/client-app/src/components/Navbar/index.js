@@ -3,7 +3,7 @@ import Dropdown from '../Dropdown';
 import {Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink} from './NavbarElements';
 import '../../../src/Styles/Navbar.css';
 import Example from '../languageDropDown';
-
+import Modal from '../signUpModal';
 function Navbar() {
    
     const [dropdown, setDropdown] = useState(false);
@@ -27,10 +27,8 @@ function Navbar() {
         <div> 
                 <div class="ui navMenu">
                     <NavLink to= "/">
-                    
                     <i class='fas fa-desktop fa-fw'/>
                     <h1 className ='navbar-logo'>codePlay</h1>
-                   
                     </NavLink>
                     <Example/>
                     <a class="item">
@@ -49,6 +47,7 @@ function Navbar() {
                     <NavBtnLink to ="/signin">Sign In</NavBtnLink>
                     <NavBtnLink to="/signup" >Sign Up</NavBtnLink>
                     </NavBtn>
+                    <Modal/>
                 </div>
             
 
