@@ -8,12 +8,13 @@ import AceEditorConsoleOutput from "./AceEditors/AceEditorConsoleOutput";
 
 import Navbar from "../Navbar";
 
-const TextEditorGrid = (props: any) => {
+const TextEditorGrid = () => {
   const [source_code, setSource_code] = useState("");
   const [stdin, setStdin] = useState("");
   const [stdout, setStdout] = useState("");
   const [stderr, setStderr] = useState("");
   const [loading, setLoading] = useState(false);
+  const [languageName, setLanguageName] = useState("java");
 
   return (
     <>
@@ -39,6 +40,9 @@ const TextEditorGrid = (props: any) => {
               setStdout={(output: string) => setStdout(output)}
               setStderr={(err: string) => setStderr(err)}
               setLoading={(loading: boolean) => setLoading(loading)}
+              setLanguageName={(languageName: string) =>
+                setLanguageName(languageName)
+              }
             />
           </Grid.Row>
           <Grid.Row stretched style={{ padding: 0, height: "100%" }}>
@@ -48,6 +52,7 @@ const TextEditorGrid = (props: any) => {
               style={{ padding: 0, height: "inherit" }}
             >
               <AceEditorCode
+                languageName={languageName}
                 setEditorCode={(code: string) => setSource_code(code)}
               />
             </Grid.Column>
