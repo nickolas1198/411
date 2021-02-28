@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export type Judge0Dto = {
+  languageId: number;
   sourceCode: string;
   stdin: string;
 };
@@ -11,7 +12,7 @@ export type Judge0Response = {
 };
 
 const Judge0ApiCall = (dto: Judge0Dto) => {
-  const language_id = 51; // hehe change this. hardcoded to c# for testing
+  const language_id = dto.languageId;
   const source_code = dto.sourceCode;
   const stdin = dto.stdin;
   const url = "https://localhost:5001/api/judge0Controller/sendRequest";
