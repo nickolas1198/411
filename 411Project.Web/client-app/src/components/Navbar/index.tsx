@@ -5,7 +5,7 @@ import "../../../src/Styles/Navbar.css";
 import Example from "../languageDropDown";
 import RunButton from "./RunButton";
 import { RunButtonInfo } from "./RunButton";
-
+import Modal from '../signUpModal';
 function Navbar(props: RunButtonInfo) {
   const [dropdown, setDropdown] = useState(false);
 
@@ -25,7 +25,7 @@ function Navbar(props: RunButtonInfo) {
   };
 
   return (
-    <div>
+
       <div className="ui navMenu">
         <NavLink to="/">
           <i className="fas fa-desktop fa-fw" />
@@ -39,6 +39,7 @@ function Navbar(props: RunButtonInfo) {
           setStderr={props.setStderr}
           setLoading={props.setLoading}
         />
+        {/**
         <li
           className="nav-item"
           onMouseEnter={onMouseEnter}
@@ -52,12 +53,9 @@ function Navbar(props: RunButtonInfo) {
         <a className="item">
           Settings <i className="fas fa-caret-down fa-fw" />
         </a>
-        <NavBtn>
-          <NavBtnLink to="/signin">Sign In</NavBtnLink>
-          <NavBtnLink to="/signup">Sign Up</NavBtnLink>
-        </NavBtn>
+        
+        <Modal/>*/}
       </div>
-    </div>
   );
 }
 
