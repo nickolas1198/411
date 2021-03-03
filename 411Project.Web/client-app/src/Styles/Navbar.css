@@ -28,6 +28,7 @@
 .item {
   color: #15cdfc !important;
   user-select: none;
+  padding: 1em;
 }
 .item:hover {
   background-color: #1888ff !important;
@@ -43,7 +44,7 @@
   top: 0;
   left: 0;
   display: flex;
- /* justify-content: space-between;
+  /* justify-content: space-between;
   padding: 0.5rem calc((100vw - 1000px) / 2);*/
   z-index: 10;
 }
