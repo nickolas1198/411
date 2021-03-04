@@ -7,13 +7,15 @@ import AceEditorConsoleInput from "./AceEditors/AceEditorConsoleInput";
 import AceEditorConsoleOutput from "./AceEditors/AceEditorConsoleOutput";
 
 import Navbar from "../Navbar";
+import EditorHeadder from "./EditorHeader/EditorHeader";
 
-const TextEditorGrid = (props: any) => {
+const TextEditorGrid = () => {
   const [source_code, setSource_code] = useState("");
   const [stdin, setStdin] = useState("");
   const [stdout, setStdout] = useState("");
   const [stderr, setStderr] = useState("");
   const [loading, setLoading] = useState(false);
+  const [languageName, setLanguageName] = useState("java");
 
   return (
     <>
@@ -39,22 +41,29 @@ const TextEditorGrid = (props: any) => {
               setStdout={(output: string) => setStdout(output)}
               setStderr={(err: string) => setStderr(err)}
               setLoading={(loading: boolean) => setLoading(loading)}
+              setLanguageName={(languageName: string) =>
+                setLanguageName(languageName)
+              }
             />
           </Grid.Row>
           <Grid.Row stretched style={{ padding: 0, height: "100%" }}>
             <Grid.Column
               floated="left"
               width={10}
-              style={{ padding: 0, height: "inherit" }}
+              style={{ padding: 0, paddingRight: "3px", height: "inherit" }}
             >
+              <EditorHeadder headerName="Main Editor" />
               <AceEditorCode
+                languageName={languageName}
                 setEditorCode={(code: string) => setSource_code(code)}
               />
             </Grid.Column>
             <Grid.Column floated="right" width={6} style={{ padding: 0 }}>
+              <EditorHeadder headerName="Console Input" />
               <AceEditorConsoleInput
                 setConsoleInput={(input: string) => setStdin(input)}
               />
+              <EditorHeadder headerName="Console Output" />
               <AceEditorConsoleOutput stdout={stdout} stderr={stderr} />
             </Grid.Column>
           </Grid.Row>

@@ -1,13 +1,21 @@
 import React, { useState } from "react";
-import Dropdown from "../Dropdown";
-import { NavLink, NavBtn, NavBtnLink } from "./NavbarElements";
+import { NavLink } from "./NavbarElements";
 import "../../../src/Styles/Navbar.css";
 import Example from "../languageDropDown";
 import RunButton from "./RunButton";
-import { RunButtonInfo } from "./RunButton";
-import Modal from '../signUpModal';
-function Navbar(props: RunButtonInfo) {
+
+type NavbarInfo = {
+  sourceCode: string;
+  stdin: string;
+  setStdout: (stdout: string) => void;
+  setStderr: (stderr: string) => void;
+  setLoading: (loading: boolean) => void;
+  setLanguageName: (languageName: string) => void;
+};
+
+function Navbar(props: NavbarInfo) {
   const [dropdown, setDropdown] = useState(false);
+  const [languageId, setLanguageId] = useState(62); // 62 is Java's language_id
 
   const onMouseEnter = () => {
     if (window.innerWidth < 960) {
@@ -25,21 +33,24 @@ function Navbar(props: RunButtonInfo) {
   };
 
   return (
-
-      <div className="ui navMenu">
-        <NavLink to="/">
-          <i className="fas fa-desktop fa-fw" />
-          <h1 className="navbar-logo">codePlay</h1>
-        </NavLink>
-        <Example />
-        <RunButton
-          sourceCode={props.sourceCode}
-          stdin={props.stdin}
-          setStdout={props.setStdout}
-          setStderr={props.setStderr}
-          setLoading={props.setLoading}
-        />
-        {/**
+    <div className="ui navMenu">
+      <NavLink to="/">
+        <i className="fas fa-desktop fa-fw" />
+        <h1 className="navbar-logo">codePlay</h1>
+      </NavLink>
+      <Example
+        setLanguageName={props.setLanguageName}
+        setLanguageId={(languageId: number) => setLanguageId(languageId)}
+      />
+      <RunButton
+        languageId={languageId}
+        sourceCode={props.sourceCode}
+        stdin={props.stdin}
+        setStdout={props.setStdout}
+        setStderr={props.setStderr}
+        setLoading={props.setLoading}
+      />
+      {/* 
         <li
           className="nav-item"
           onMouseEnter={onMouseEnter}
@@ -55,7 +66,7 @@ function Navbar(props: RunButtonInfo) {
         </a>
         
         <Modal/>*/}
-      </div>
+    </div>
   );
 }
 

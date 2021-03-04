@@ -1,22 +1,55 @@
 import AceEditor from "react-ace";
-import brace from "brace";
+import "ace-builds/src-noconflict/ext-language_tools";
+import "ace-builds/src-noconflict/ext-beautify";
 
-import "brace/mode/csharp";
-import "brace/snippets/html";
-import "brace/ext/language_tools";
-import "brace/theme/solarized_dark";
+// Below lies all of the language modes and
+// their snippets
+import "ace-builds/src-noconflict/mode-c_cpp";
+import "ace-builds/src-noconflict/snippets/c_cpp";
+
+import "ace-builds/src-noconflict/mode-csharp";
+import "ace-builds/src-noconflict/snippets/csharp";
+
+import "ace-builds/src-noconflict/mode-java";
+import "ace-builds/src-noconflict/snippets/java";
+
+import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/snippets/javascript";
+
+import "ace-builds/src-noconflict/mode-kotlin";
+import "ace-builds/src-noconflict/snippets/kotlin";
+
+import "ace-builds/src-noconflict/mode-php";
+import "ace-builds/src-noconflict/snippets/php";
+
+import "ace-builds/src-noconflict/mode-python";
+import "ace-builds/src-noconflict/snippets/python";
+
+import "ace-builds/src-noconflict/mode-ruby";
+import "ace-builds/src-noconflict/snippets/ruby";
+
+import "ace-builds/src-noconflict/mode-rust";
+import "ace-builds/src-noconflict/snippets/rust";
+
+import "ace-builds/src-noconflict/mode-swift";
+import "ace-builds/src-noconflict/snippets/swift";
+
+import "ace-builds/src-noconflict/mode-typescript";
+import "ace-builds/src-noconflict/snippets/typescript";
+
+// Themes
+import "ace-builds/src-noconflict/theme-solarized_dark";
 
 type sourceCodeEditor = {
-  language?: string;
+  languageName: string;
+  // hook setter from TextEditorGrid.tsx
   setEditorCode: (code: string) => void;
 };
 
-// setting the height in this way is kinda funky, need
-// to fix
 const AceEditorCode = (props: sourceCodeEditor) => {
   return (
     <AceEditor
-      mode="csharp"
+      mode={props.languageName}
       theme="solarized_dark"
       name="codeWindow"
       width="100%"
