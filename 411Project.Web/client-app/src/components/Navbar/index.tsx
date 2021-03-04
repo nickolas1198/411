@@ -9,6 +9,7 @@ type NavbarInfo = {
   stdin: string;
   setStdout: (stdout: string) => void;
   setStderr: (stderr: string) => void;
+  setCompileOutput: (compile_output: string) => void;
   setLoading: (loading: boolean) => void;
   setLanguageName: (languageName: string) => void;
 };
@@ -48,6 +49,7 @@ function Navbar(props: NavbarInfo) {
         stdin={props.stdin}
         setStdout={props.setStdout}
         setStderr={props.setStderr}
+        setCompileOutput={props.setCompileOutput}
         setLoading={props.setLoading}
       />
       {/* 

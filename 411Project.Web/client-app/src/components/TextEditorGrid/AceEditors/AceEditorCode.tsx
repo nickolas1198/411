@@ -56,6 +56,7 @@ const AceEditorCode = (props: sourceCodeEditor) => {
       height="100%"
       fontSize={16}
       showPrintMargin={false}
+      wrapEnabled={true}
       highlightActiveLine={true}
       onChange={(event) => props.setEditorCode(event)}
       setOptions={{

@@ -9,6 +9,7 @@ export type Judge0Dto = {
 export type Judge0Response = {
   stdout: string;
   stderr: string;
+  compile_output: string;
 };
 
 const Judge0ApiCall = (dto: Judge0Dto) => {
