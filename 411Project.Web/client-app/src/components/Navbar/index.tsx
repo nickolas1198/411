@@ -14,6 +14,7 @@ type NavbarInfo = {
 };
 
 function Navbar(props: NavbarInfo) {
+import Modal from '../signUpModal';
   const [dropdown, setDropdown] = useState(false);
   const [languageId, setLanguageId] = useState(62); // 62 is Java's language_id
 
@@ -33,7 +34,7 @@ function Navbar(props: NavbarInfo) {
   };
 
   return (
-    <div>
+
       <div className="ui navMenu">
         <NavLink to="/">
           <i className="fas fa-desktop fa-fw" />
@@ -65,13 +66,9 @@ function Navbar(props: NavbarInfo) {
         <a className="item">
           Settings <i className="fas fa-caret-down fa-fw" />
         </a>
-        <NavBtn>
-          <NavBtnLink to="/signin">Sign In</NavBtnLink>
-          <NavBtnLink to="/signup">Sign Up</NavBtnLink>
-        </NavBtn>
-        */}
+        
+        <Modal/>*/}
       </div>
-    </div>
   );
 }
 
