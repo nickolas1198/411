@@ -18,6 +18,8 @@ const AceEditorConsoleOutput = (props: AceEditorConsoleOutputProps) => (
     height="50%"
     fontSize={16}
     showPrintMargin={false}
+    highlightActiveLine={false}
+    wrapEnabled={true}
     readOnly={true}
     value={props.stdout ?? props.stderr}
   />
