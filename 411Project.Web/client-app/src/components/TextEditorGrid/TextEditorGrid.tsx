@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import { Grid } from "semantic-ui-react";
+import RGL, { WidthProvider } from "react-grid-layout";
+
+import GridLayout from "react-grid-layout";
+import "../../../node_modules/react-grid-layout/css/styles.css";
+import "../../../node_modules/react-resizable/css/styles.css";
+
 // @ts-ignore
 import LoadingOverlay from "react-loading-overlay";
 import AceEditorCode from "./AceEditors/AceEditorCode";
@@ -9,6 +15,8 @@ import AceEditorConsoleOutput from "./AceEditors/AceEditorConsoleOutput";
 import Navbar from "../Navbar";
 import EditorHeadder from "./EditorHeader/EditorHeader";
 
+const ReactGridLayout = WidthProvider(RGL);
+
 const TextEditorGrid = () => {
   const [source_code, setSource_code] = useState("");
   const [stdin, setStdin] = useState("");
@@ -17,15 +25,66 @@ const TextEditorGrid = () => {
   const [compile_output, setCompile_output] = useState("");
   const [loading, setLoading] = useState(false);
   const [languageName, setLanguageName] = useState("java");
+  const [editorResize, setEditorResize] = useState(false);
+
+  /* 
+    MAX values to fill screen:
+      - w -> 12
+      - h -> by rowHeight?
+  */
+  const layout = [
+    { i: "a", w: 8, h: 30, x: 0, y: 0 },
+    { i: "b", w: 4, h: 15, x: 8, y: 0 },
+    { i: "c", w: 4, h: 15, x: 8, y: 3 },
+  ];
 
   return (
     <>
+      <ReactGridLayout
+        className="layout"
+        layout={layout}
+        cols={12}
+        maxRows={30}
+        rowHeight={21}
+        isResizable={true}
+        autoSize={true}
+        onResizeStop={() => setEditorResize(true)}
+      >
+        <div key="a">
+          <EditorHeadder headerName="Main Editor" />
+          <AceEditorCode
+            languageName={languageName}
+            setEditorCode={(code: string) => setSource_code(code)}
+            editorResize={editorResize}
+            onResizeComplete={() => setEditorResize(false)}
+          />
+        </div>
+        <div key="b">
+          <EditorHeadder headerName="Console Input" />
+          <AceEditorCode
+            languageName={languageName}
+            setEditorCode={(code: string) => setSource_code(code)}
+            editorResize={editorResize}
+            onResizeComplete={() => setEditorResize(false)}
+          />
+        </div>
+        <div key="c">
+          <EditorHeadder headerName="Console Output" />
+          <AceEditorCode
+            languageName={languageName}
+            setEditorCode={(code: string) => setSource_code(code)}
+            editorResize={editorResize}
+            onResizeComplete={() => setEditorResize(false)}
+          />
+        </div>
+      </ReactGridLayout>
+      {/* 
       <LoadingOverlay
         active={loading}
         spinner
         text="Running code"
         fadeSpeed={250}
-      >
+        
         <Grid
           style={{
             height: "100vh",
@@ -76,7 +135,9 @@ const TextEditorGrid = () => {
             </Grid.Column>
           </Grid.Row>
         </Grid>
+        
       </LoadingOverlay>
+      */}
     </>
   );
 };

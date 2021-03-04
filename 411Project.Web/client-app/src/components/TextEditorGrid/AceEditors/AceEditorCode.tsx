@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/ext-beautify";
@@ -44,11 +46,26 @@ type sourceCodeEditor = {
   languageName: string;
   // hook setter from TextEditorGrid.tsx
   setEditorCode: (code: string) => void;
+  editorResize: boolean;
+  onResizeComplete: () => void;
 };
 
 const AceEditorCode = (props: sourceCodeEditor) => {
+  const aceRef = useRef(null);
+
+  useEffect(() => {
+    if (props.editorResize === true) {
+      console.log(aceRef.current);
+      props.onResizeComplete();
+
+      const curr = aceRef.current as any;
+      curr.editor?.resize();
+    }
+  }, [props.editorResize]);
+
   return (
     <AceEditor
+      ref={aceRef}
       mode={props.languageName}
       theme="solarized_dark"
       name="codeWindow"
