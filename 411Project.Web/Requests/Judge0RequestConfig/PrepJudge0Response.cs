@@ -39,6 +39,12 @@ namespace _411Project.Web.Requests.Judge0Request
                     ConvertFromBase64((string)jsonResponse[Judge0Constants.Stderr]);
             }
 
+            if ((string)jsonResponse[Judge0Constants.Compile_output] != null)
+            {
+                responseDto.Compile_output =
+                    ConvertFromBase64((string)jsonResponse[Judge0Constants.Compile_output]);
+            }
+
             return responseDto;
         }
     }

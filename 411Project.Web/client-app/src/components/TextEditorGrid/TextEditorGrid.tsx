@@ -14,6 +14,7 @@ const TextEditorGrid = () => {
   const [stdin, setStdin] = useState("");
   const [stdout, setStdout] = useState("");
   const [stderr, setStderr] = useState("");
+  const [compile_output, setCompile_output] = useState("");
   const [loading, setLoading] = useState(false);
   const [languageName, setLanguageName] = useState("java");
 
@@ -41,6 +42,9 @@ const TextEditorGrid = () => {
               setStdout={(output: string) => setStdout(output)}
               setStderr={(err: string) => setStderr(err)}
               setLoading={(loading: boolean) => setLoading(loading)}
+              setCompileOutput={(compileOutput: string) =>
+                setCompile_output(compileOutput)
+              }
               setLanguageName={(languageName: string) =>
                 setLanguageName(languageName)
               }
@@ -64,7 +68,11 @@ const TextEditorGrid = () => {
                 setConsoleInput={(input: string) => setStdin(input)}
               />
               <EditorHeadder headerName="Console Output" />
-              <AceEditorConsoleOutput stdout={stdout} stderr={stderr} />
+              <AceEditorConsoleOutput
+                stdout={stdout}
+                stderr={stderr}
+                compile_output={compile_output}
+              />
             </Grid.Column>
           </Grid.Row>
         </Grid>

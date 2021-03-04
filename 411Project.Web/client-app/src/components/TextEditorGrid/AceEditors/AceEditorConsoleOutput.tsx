@@ -7,6 +7,7 @@ import "brace/theme/solarized_dark";
 type AceEditorConsoleOutputProps = {
   stdout: string;
   stderr: string;
+  compile_output: string;
 };
 
 const AceEditorConsoleOutput = (props: AceEditorConsoleOutputProps) => (
@@ -21,7 +22,7 @@ const AceEditorConsoleOutput = (props: AceEditorConsoleOutputProps) => (
     highlightActiveLine={false}
     wrapEnabled={true}
     readOnly={true}
-    value={props.stdout ?? props.stderr}
+    value={props.stdout ?? props.stderr ?? props.compile_output}
   />
 );
 

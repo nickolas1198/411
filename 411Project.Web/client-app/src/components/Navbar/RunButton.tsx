@@ -6,6 +6,7 @@ import "../../../src/Styles/Navbar.css";
 export type RunButtonInfo = Judge0Dto & {
   setStdout: (stdout: string) => void;
   setStderr: (stderr: string) => void;
+  setCompileOutput: (compile_output: string) => void;
   setLoading: (loading: boolean) => void;
 };
 
@@ -17,6 +18,7 @@ const RunButton = (props: RunButtonInfo) => {
 
     props.setStdout(res.data.stdout);
     props.setStderr(res.data.stderr);
+    props.setCompileOutput(res.data.compile_output);
   };
 
   return (
