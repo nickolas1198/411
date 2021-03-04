@@ -14,7 +14,6 @@ type NavbarInfo = {
 };
 
 function Navbar(props: NavbarInfo) {
-import Modal from '../signUpModal';
   const [dropdown, setDropdown] = useState(false);
   const [languageId, setLanguageId] = useState(62); // 62 is Java's language_id
 
@@ -34,25 +33,24 @@ import Modal from '../signUpModal';
   };
 
   return (
-
-      <div className="ui navMenu">
-        <NavLink to="/">
-          <i className="fas fa-desktop fa-fw" />
-          <h1 className="navbar-logo">codePlay</h1>
-        </NavLink>
-        <Example
-          setLanguageName={props.setLanguageName}
-          setLanguageId={(languageId: number) => setLanguageId(languageId)}
-        />
-        <RunButton
-          languageId={languageId}
-          sourceCode={props.sourceCode}
-          stdin={props.stdin}
-          setStdout={props.setStdout}
-          setStderr={props.setStderr}
-          setLoading={props.setLoading}
-        />
-        {/* 
+    <div className="ui navMenu">
+      <NavLink to="/">
+        <i className="fas fa-desktop fa-fw" />
+        <h1 className="navbar-logo">codePlay</h1>
+      </NavLink>
+      <Example
+        setLanguageName={props.setLanguageName}
+        setLanguageId={(languageId: number) => setLanguageId(languageId)}
+      />
+      <RunButton
+        languageId={languageId}
+        sourceCode={props.sourceCode}
+        stdin={props.stdin}
+        setStdout={props.setStdout}
+        setStderr={props.setStderr}
+        setLoading={props.setLoading}
+      />
+      {/* 
         <li
           className="nav-item"
           onMouseEnter={onMouseEnter}
@@ -68,7 +66,7 @@ import Modal from '../signUpModal';
         </a>
         
         <Modal/>*/}
-      </div>
+    </div>
   );
 }
 
