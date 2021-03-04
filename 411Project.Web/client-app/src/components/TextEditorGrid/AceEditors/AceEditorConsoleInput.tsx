@@ -18,6 +18,8 @@ const AceEditorConsoleInput = (props: consoleInputEditor) => (
     height="50%"
     fontSize={16}
     showPrintMargin={false}
+    wrapEnabled={true}
+    highlightActiveLine={false}
     onChange={(event) => props.setConsoleInput(event)}
   />
 );
