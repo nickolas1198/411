@@ -31,10 +31,12 @@ function Navbar(props: NavbarInfo) {
       setDropdown(false);
     }
   };
-
+  const refreshPage = () => {
+    window.location.reload();
+  }
   return (
     <div className="ui navMenu">
-      <NavLink to="/">
+      <NavLink to="/" onClick={refreshPage}>
         <i className="fas fa-desktop fa-fw" />
         <h1 className="navbar-logo">codePlay</h1>
       </NavLink>
