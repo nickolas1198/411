@@ -15,8 +15,8 @@ const AceEditorConsoleOutput = (props: AceEditorConsoleOutputProps) => (
     mode="csharp"
     theme="solarized_dark"
     name="consoleOutput"
-    width="auto"
-    height="50%"
+    width="100%"
+    height="100%"
     fontSize={16}
     showPrintMargin={false}
     highlightActiveLine={false}
