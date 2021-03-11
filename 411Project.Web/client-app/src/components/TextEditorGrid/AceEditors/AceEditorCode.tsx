@@ -39,16 +39,31 @@ import "ace-builds/src-noconflict/snippets/typescript";
 
 // Themes
 import "ace-builds/src-noconflict/theme-solarized_dark";
+import { useEffect, useRef } from "react";
 
 type sourceCodeEditor = {
   languageName: string;
   // hook setter from TextEditorGrid.tsx
   setEditorCode: (code: string) => void;
+  editorResize: boolean;
+  onResizeComplete: () => void;
 };
 
 const AceEditorCode = (props: sourceCodeEditor) => {
+  const aceRef = useRef(null);
+
+  useEffect(() => {
+    if (props.editorResize === true) {
+      props.onResizeComplete();
+
+      const curr = aceRef.current as any;
+      curr.editor?.resize();
+    }
+  }, [props.editorResize]);
+
   return (
     <AceEditor
+      ref={aceRef}
       mode={props.languageName}
       theme="solarized_dark"
       name="codeWindow"

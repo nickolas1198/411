@@ -20,16 +20,21 @@ const TextEditorGrid = () => {
   const [compile_output, setCompile_output] = useState("");
   const [loading, setLoading] = useState(false);
   const [languageName, setLanguageName] = useState("java");
+  const [editorResize, setEditorResize] = useState(false);
 
   // This "factory" is used to generate the FlexLayout(resizeable grid)
   var factory = (node: any) => {
     var component = node.getComponent();
+
+    node.setEventListener("resize", () => setEditorResize(true));
 
     if (component === "AceEditorCode") {
       return (
         <AceEditorCode
           languageName={languageName}
           setEditorCode={(code: string) => setSource_code(code)}
+          editorResize={editorResize}
+          onResizeComplete={() => setEditorResize(false)}
         />
       );
     } else if (component === "AceEditorConsoleInput") {

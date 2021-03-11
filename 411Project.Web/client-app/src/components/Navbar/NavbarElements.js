@@ -1,4 +1,3 @@
-import { FaBars } from "react-icons/fa";
 import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -8,7 +7,7 @@ export const NavLink = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding:1rem 1rem;
+  padding: 1rem 1rem;
   height: 100%;
   cursor: pointer;
   &:active {
@@ -20,13 +19,11 @@ export const NavBtn = styled.nav`
   display: flex;
   align-items: center;
   margin-right: 24px;
- 
-
 `;
 
 export const NavBtnLink = styled(Link)`
   border-radius: 4px;
-  background:linear-gradient(to right, #67b26b, #4ca2cb) !important;
+  background: linear-gradient(to right, #67b26b, #4ca2cb) !important;
   padding: 10px 22px;
   color: #fff;
   outline: none;

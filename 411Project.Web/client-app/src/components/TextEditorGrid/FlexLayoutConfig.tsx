@@ -29,6 +29,7 @@ export var json = {
               {
                 type: "tab",
                 name: "Console Input",
+                enableRename: false,
                 component: "AceEditorConsoleInput",
               },
             ],
@@ -42,6 +43,7 @@ export var json = {
               {
                 type: "tab",
                 name: "Console Output",
+                enableRename: false,
                 component: "AceEditorConsoleOutput",
               },
             ],
