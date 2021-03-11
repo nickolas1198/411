@@ -15,7 +15,7 @@ const AceEditorConsoleInput = (props: consoleInputEditor) => (
     theme="solarized_dark"
     name="consoleInput"
     width="100%"
-    height="50%"
+    height="100%"
     fontSize={16}
     showPrintMargin={false}
     wrapEnabled={true}
