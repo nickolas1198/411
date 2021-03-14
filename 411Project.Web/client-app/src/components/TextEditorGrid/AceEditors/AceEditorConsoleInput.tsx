@@ -1,17 +1,16 @@
-import AceEditor from "react-ace";
-import brace from "brace";
+import AceEditorResizeable from "./AceEditorResizeable";
 
-import "brace/mode/csharp";
-
-import "brace/theme/solarized_dark";
-
-type consoleInputEditor = {
+export type aceEditorConsoleInput = {
   setConsoleInput: (input: string) => void;
+  editorResize: boolean;
+  onResizeComplete: () => void;
 };
 
-const AceEditorConsoleInput = (props: consoleInputEditor) => (
-  <AceEditor
-    mode="csharp"
+const AceEditorConsoleInput = (props: aceEditorConsoleInput) => (
+  <AceEditorResizeable
+    editorResize={props.editorResize}
+    onResizeComplete={props.onResizeComplete}
+    mode="text"
     theme="solarized_dark"
     name="consoleInput"
     width="100%"

@@ -1,69 +1,19 @@
-import AceEditor from "react-ace";
-import "ace-builds/src-noconflict/ext-language_tools";
-import "ace-builds/src-noconflict/ext-beautify";
+import React from "react";
+import AceEditorResizeable from "./AceEditorResizeable";
 
-// Below lies all of the language modes and
-// their snippets
-import "ace-builds/src-noconflict/mode-c_cpp";
-import "ace-builds/src-noconflict/snippets/c_cpp";
-
-import "ace-builds/src-noconflict/mode-csharp";
-import "ace-builds/src-noconflict/snippets/csharp";
-
-import "ace-builds/src-noconflict/mode-java";
-import "ace-builds/src-noconflict/snippets/java";
-
-import "ace-builds/src-noconflict/mode-javascript";
-import "ace-builds/src-noconflict/snippets/javascript";
-
-import "ace-builds/src-noconflict/mode-kotlin";
-import "ace-builds/src-noconflict/snippets/kotlin";
-
-import "ace-builds/src-noconflict/mode-php";
-import "ace-builds/src-noconflict/snippets/php";
-
-import "ace-builds/src-noconflict/mode-python";
-import "ace-builds/src-noconflict/snippets/python";
-
-import "ace-builds/src-noconflict/mode-ruby";
-import "ace-builds/src-noconflict/snippets/ruby";
-
-import "ace-builds/src-noconflict/mode-rust";
-import "ace-builds/src-noconflict/snippets/rust";
-
-import "ace-builds/src-noconflict/mode-swift";
-import "ace-builds/src-noconflict/snippets/swift";
-
-import "ace-builds/src-noconflict/mode-typescript";
-import "ace-builds/src-noconflict/snippets/typescript";
-
-// Themes
-import "ace-builds/src-noconflict/theme-solarized_dark";
-import { useEffect, useRef } from "react";
-
-type sourceCodeEditor = {
+export type aceEditorSourceCodeEditor = {
   languageName: string;
-  // hook setter from TextEditorGrid.tsx
-  setEditorCode: (code: string) => void;
   editorResize: boolean;
   onResizeComplete: () => void;
+  // hook setter from TextEditorGrid.tsx
+  setEditorCode: (code: string) => void;
 };
 
-const AceEditorCode = (props: sourceCodeEditor) => {
-  const aceRef = useRef(null);
-
-  useEffect(() => {
-    if (props.editorResize === true) {
-      props.onResizeComplete();
-
-      const curr = aceRef.current as any;
-      curr.editor?.resize();
-    }
-  }, [props.editorResize]);
-
+const AceEditorCode = (props: aceEditorSourceCodeEditor) => {
   return (
-    <AceEditor
-      ref={aceRef}
+    <AceEditorResizeable
+      editorResize={props.editorResize}
+      onResizeComplete={props.onResizeComplete}
       mode={props.languageName}
       theme="solarized_dark"
       name="codeWindow"

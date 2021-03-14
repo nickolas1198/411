@@ -41,14 +41,19 @@ const TextEditorGrid = () => {
       return (
         <AceEditorConsoleInput
           setConsoleInput={(input: string) => setStdin(input)}
+          editorResize={editorResize}
+          onResizeComplete={() => setEditorResize(false)}
         />
       );
     } else if (component === "AceEditorConsoleOutput") {
       return (
         <AceEditorConsoleOutput
+          languageName={languageName}
           stdout={stdout}
           stderr={stderr}
           compile_output={compile_output}
+          editorResize={editorResize}
+          onResizeComplete={() => setEditorResize(false)}
         />
       );
     }
