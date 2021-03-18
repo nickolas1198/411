@@ -3,7 +3,8 @@ import { NavLink } from "./NavbarElements";
 import "../../../src/Styles/Navbar.css";
 import Example from "../languageDropDown";
 import RunButton from "./RunButton";
-
+import RegisterModal from '../registerModal'
+import Dropdown from "../Dropdown"
 type NavbarInfo = {
   sourceCode: string;
   stdin: string;
@@ -52,22 +53,24 @@ function Navbar(props: NavbarInfo) {
         setStderr={props.setStderr}
         setLoading={props.setLoading}
       />
-      {/* 
+       {/*
         <li
-          className="nav-item"
+          
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
         >
-          <a className="item">
+          <a className="fileButton">
             File <i className="fas fa-caret-down fa-fw" />
             {dropdown && <Dropdown />}
           </a>
         </li>
-        <a className="item">
+       <a className="item">
           Settings <i className="fas fa-caret-down fa-fw" />
+          
         </a>
-        
-        <Modal/>*/}
+      */}
+        <RegisterModal/>
+      
     </div>
   );
 }

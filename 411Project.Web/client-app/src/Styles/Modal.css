@@ -17,5 +17,58 @@
       color: #010606;
   }
   .loginbtn{
-    background:linear-gradient(to right, #67b26b, #4ca2cb) !important; 
+    background:#00ce81; 
+    width: 265px;
+    font-size:18px;
+    border-radius:4px;
+    border:none;
+    padding:10px;
+    cursor:pointer;
   }
+  .modal{
+    height:350px !important;
+    width:300px !important;
+  }
+  .content{
+    border-radius:5px;
+    border: none;
+    height:350px;
+  }
+  .header{
+    text-align:center;
+  }
+  .forminput{
+    font-size:18px;
+    padding-left:40px;
+  }
+  .forminput:focus{
+    border-color: #00ce81 !important;
+  }
+  .formicons{
+    position: absolute;
+		left: 30px;
+    padding:5px;
+		font-size: 18px;
+  }
+  .formholder{
+    padding-top:20px;
+  }
+  .footer{
+    text-align: right;
+    padding-top:10px;
+    font-size:12px;
+  }
+  .redirectButton{
+    font-size:12px;
+    padding:0 !important;
+    background-color:white !important;
+    text-decoration: underline !important;
+  }
+  .password-toggle-icon {
+    position: absolute;
+    font-size:18px;
+    right:30px;
+    padding:5px;
+    z-index: 1000;
+    cursor: pointer;
+}

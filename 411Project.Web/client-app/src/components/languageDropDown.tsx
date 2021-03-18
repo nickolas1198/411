@@ -44,6 +44,7 @@ const langDrop = (props: DropdownInfo) => {
     <Select
       placeholder="Java"
       options={languageOptions}
+      search
       onChange={(event, data) => {
         handleChange(data);
       }}

@@ -1,6 +1,5 @@
 import Judge0ApiCall from "../../ApiCalls/Judge0ApiCall";
 import { Judge0Dto } from "../../ApiCalls/Judge0ApiCall";
-
 import "../../../src/Styles/Navbar.css";
 
 export type RunButtonInfo = Judge0Dto & {
@@ -18,7 +17,8 @@ const RunButton = (props: RunButtonInfo) => {
     props.setStdout(res.data.stdout);
     props.setStderr(res.data.stderr);
   };
-
+ 
+  
   return (
     <>
       <a className="item" onClick={() => handleSubmit(props)}>

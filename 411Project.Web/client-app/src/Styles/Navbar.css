@@ -35,6 +35,17 @@
   border-radius: 4px;
   transition: all 0.2s ease-out;
 }
+.fileButton {
+  color: #15cdfc !important;
+  user-select: none;
+  padding:20px;
+}
+.fileButton:hover{
+  background-color: #1888ff !important;
+  border-radius: 4px;
+  transition: all 0.2s ease-out;
+  
+}
 .navMenu {
   background-color: #000 !important;
   align-items: center;
