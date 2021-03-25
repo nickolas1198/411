@@ -3,8 +3,9 @@ import { NavLink } from "./NavbarElements";
 import "../../../src/Styles/Navbar.css";
 import Example from "../languageDropDown";
 import RunButton from "./RunButton";
-import RegisterModal from '../registerModal'
-import Dropdown from "../Dropdown"
+import RegisterModal from "../registerModal";
+import Dropdown from "../Dropdown";
+
 type NavbarInfo = {
   sourceCode: string;
   stdin: string;
@@ -34,7 +35,7 @@ function Navbar(props: NavbarInfo) {
   };
   const refreshPage = () => {
     window.location.reload();
-  }
+  };
   return (
     <div className="ui navMenu">
       <NavLink to="/" onClick={refreshPage}>
@@ -53,7 +54,7 @@ function Navbar(props: NavbarInfo) {
         setStderr={props.setStderr}
         setLoading={props.setLoading}
       />
-       {/*
+      {/*
         <li
           
           onMouseEnter={onMouseEnter}
@@ -69,8 +70,7 @@ function Navbar(props: NavbarInfo) {
           
         </a>
       */}
-        <RegisterModal/>
-      
+      <RegisterModal />
     </div>
   );
 }

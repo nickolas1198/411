@@ -17,8 +17,22 @@ const RunButton = (props: RunButtonInfo) => {
     props.setStdout(res.data.stdout);
     props.setStderr(res.data.stderr);
   };
- 
-  
+
+  //event listener to run on a keypress
+  document.addEventListener(
+    "keyup",
+    function (event) {
+      if (event.defaultPrevented) {
+        return; // Do nothing if the event was already processed
+      } else if (event.keyCode === 120) {
+        //120 is keycode for F9
+        handleSubmit(props);
+      }
+      event.preventDefault();
+    },
+    true
+  );
+
   return (
     <>
       <a className="item" onClick={() => handleSubmit(props)}>
