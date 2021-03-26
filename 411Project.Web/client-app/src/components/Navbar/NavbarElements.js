@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> basic-frontend
 import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -14,6 +18,7 @@ export const NavLink = styled(Link)`
     color: #fff;
   }
 `;
+<<<<<<< HEAD
 
 export const NavBtn = styled.nav`
   display: flex;
@@ -39,3 +44,5 @@ export const NavBtnLink = styled(Link)`
     color: #010606;
   }
 `;
+=======
+>>>>>>> basic-frontend

@@ -3,6 +3,8 @@ import { NavLink } from "./NavbarElements";
 import "../../../src/Styles/Navbar.css";
 import Example from "../languageDropDown";
 import RunButton from "./RunButton";
+import RegisterModal from "../registerModal";
+import Dropdown from "../Dropdown";
 
 type NavbarInfo = {
   sourceCode: string;
@@ -32,10 +34,12 @@ function Navbar(props: NavbarInfo) {
       setDropdown(false);
     }
   };
-
+  const refreshPage = () => {
+    window.location.reload();
+  };
   return (
     <div className="ui navMenu">
-      <NavLink to="/">
+      <NavLink to="/" onClick={refreshPage}>
         <i className="fas fa-desktop fa-fw" />
         <h1 className="navbar-logo">codePlay</h1>
       </NavLink>
@@ -52,22 +56,23 @@ function Navbar(props: NavbarInfo) {
         setCompileOutput={props.setCompileOutput}
         setLoading={props.setLoading}
       />
-      {/* 
+      {/*
         <li
-          className="nav-item"
+          
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
         >
-          <a className="item">
+          <a className="fileButton">
             File <i className="fas fa-caret-down fa-fw" />
             {dropdown && <Dropdown />}
           </a>
         </li>
-        <a className="item">
+       <a className="item">
           Settings <i className="fas fa-caret-down fa-fw" />
+          
         </a>
-        
-        <Modal/>*/}
+      */}
+      <RegisterModal />
     </div>
   );
 }

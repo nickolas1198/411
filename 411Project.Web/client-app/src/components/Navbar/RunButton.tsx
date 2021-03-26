@@ -1,6 +1,5 @@
 import Judge0ApiCall from "../../ApiCalls/Judge0ApiCall";
 import { Judge0Dto } from "../../ApiCalls/Judge0ApiCall";
-
 import "../../../src/Styles/Navbar.css";
 
 export type RunButtonInfo = Judge0Dto & {
@@ -28,6 +27,21 @@ const RunButton = (props: RunButtonInfo) => {
     props.setStderr(res.data.stderr);
     props.setCompileOutput(res.data.compile_output);
   };
+
+  //event listener to run on a keypress
+  document.addEventListener(
+    "keyup",
+    function (event) {
+      if (event.defaultPrevented) {
+        return; // Do nothing if the event was already processed
+      } else if (event.keyCode === 120) {
+        //120 is keycode for F9
+        handleSubmit(props);
+      }
+      event.preventDefault();
+    },
+    true
+  );
 
   return (
     <>
