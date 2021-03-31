@@ -4,8 +4,8 @@ import "../../../src/Styles/Navbar.css";
 import Example from "../languageDropDown";
 import RunButton from "./RunButton";
 import RegisterModal from "../registerModal";
-import Dropdown from "../Dropdown";
-
+import Sidebar from "../sidebar"
+import NewFile from "../newFileDropdown"
 type NavbarInfo = {
   sourceCode: string;
   stdin: string;
@@ -17,23 +17,9 @@ type NavbarInfo = {
 };
 
 function Navbar(props: NavbarInfo) {
-  const [dropdown, setDropdown] = useState(false);
+
   const [languageId, setLanguageId] = useState(62); // 62 is Java's language_id
 
-  const onMouseEnter = () => {
-    if (window.innerWidth < 960) {
-      setDropdown(false);
-    } else {
-      setDropdown(true);
-    }
-  };
-  const onMouseLeave = () => {
-    if (window.innerWidth < 960) {
-      setDropdown(false);
-    } else {
-      setDropdown(false);
-    }
-  };
   const refreshPage = () => {
     window.location.reload();
   };
@@ -42,6 +28,7 @@ function Navbar(props: NavbarInfo) {
       <NavLink to="/" onClick={refreshPage}>
         <i className="fas fa-desktop fa-fw" />
         <h1 className="navbar-logo">codePlay</h1>
+        
       </NavLink>
       <Example
         setLanguageName={props.setLanguageName}
@@ -55,26 +42,15 @@ function Navbar(props: NavbarInfo) {
         setStderr={props.setStderr}
         setCompileOutput={props.setCompileOutput}
         setLoading={props.setLoading}
-      />
-      {/*
-        <li
-          
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-        >
-          <a className="fileButton">
-            File <i className="fas fa-caret-down fa-fw" />
-            {dropdown && <Dropdown />}
-          </a>
-        </li>
-       <a className="item">
-          Settings <i className="fas fa-caret-down fa-fw" />
-          
-        </a>
-      */}
+      />  
       <RegisterModal />
+      <NewFile/>
+      <Sidebar/>
+      
+      
     </div>
   );
+  
 }
 
 export default Navbar;

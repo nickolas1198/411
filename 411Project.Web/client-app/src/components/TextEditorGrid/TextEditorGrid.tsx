@@ -77,6 +77,7 @@ const TextEditorGrid = () => {
           }}
         >
           <Grid.Row style={{ height: "60px" }}>
+          
             <Navbar
               sourceCode={source_code}
               stdin={stdin}
@@ -90,11 +91,13 @@ const TextEditorGrid = () => {
                 setLanguageName(languageName)
               }
             />
+            
           </Grid.Row>
           <Grid.Row
             stretched
             style={{ padding: 0, height: "calc(100% - 60px)" }}
           >
+            
             <FlexLayout.Layout model={model} factory={factory} />
           </Grid.Row>
         </Grid>

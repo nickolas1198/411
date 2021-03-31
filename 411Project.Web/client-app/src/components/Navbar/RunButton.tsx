@@ -45,7 +45,7 @@ const RunButton = (props: RunButtonInfo) => {
 
   return (
     <>
-      <a className="item" onClick={() => handleSubmit(props)}>
+      <a className="NavItem" onClick={() => handleSubmit(props)}>
         <i className="fas fa-play fa-fw" />
         Run
       </a>
