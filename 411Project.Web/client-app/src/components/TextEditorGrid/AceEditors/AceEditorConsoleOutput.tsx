@@ -7,6 +7,7 @@ export type aceEditorConsoleOutput = {
   compile_output: string;
   editorResize: boolean;
   onResizeComplete: () => void;
+  fontSize: number;
 };
 
 const AceEditorConsoleOutput = (props: aceEditorConsoleOutput) => (
@@ -18,7 +19,7 @@ const AceEditorConsoleOutput = (props: aceEditorConsoleOutput) => (
     name="consoleOutput"
     width="auto"
     height="100%"
-    fontSize={16}
+    fontSize={props.fontSize}
     showPrintMargin={false}
     highlightActiveLine={false}
     wrapEnabled={true}
