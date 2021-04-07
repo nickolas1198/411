@@ -9,5 +9,6 @@ namespace _411Project.Web.Features.Judge
     {
         public string Stdout { get; set; }
         public string Stderr { get; set; }
+        public string Compile_output { get; set; }  
     }
 }

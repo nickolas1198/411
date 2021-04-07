@@ -6,15 +6,14 @@
     outline: none;
     border: none;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.4s ease-in-out;
     text-decoration: none;
   
     margin-left: 24px;
   }
   .showModal:hover{
-      transition: all 0.2s ease-in-out;
-      background: #fff;
-      color: #010606;
+      border:1px solid #1888ff !important;
+
   }
   .loginbtn{
     background:#00ce81; 

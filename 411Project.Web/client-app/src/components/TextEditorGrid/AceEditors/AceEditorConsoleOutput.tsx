@@ -1,25 +1,30 @@
-import AceEditor from "react-ace";
-import brace from "brace";
+import AceEditorResizeable from "./AceEditorResizeable";
 
-import "brace/mode/csharp";
-import "brace/theme/solarized_dark";
-
-type AceEditorConsoleOutputProps = {
+export type aceEditorConsoleOutput = {
+  languageName: string;
   stdout: string;
   stderr: string;
+  compile_output: string;
+  editorResize: boolean;
+  onResizeComplete: () => void;
+  fontSize: number;
 };
 
-const AceEditorConsoleOutput = (props: AceEditorConsoleOutputProps) => (
-  <AceEditor
-    mode="csharp"
+const AceEditorConsoleOutput = (props: aceEditorConsoleOutput) => (
+  <AceEditorResizeable
+    editorResize={props.editorResize}
+    onResizeComplete={props.onResizeComplete}
+    mode={props.languageName}
     theme="solarized_dark"
     name="consoleOutput"
     width="auto"
-    height="50%"
-    fontSize={16}
+    height="100%"
+    fontSize={props.fontSize}
     showPrintMargin={false}
+    highlightActiveLine={false}
+    wrapEnabled={true}
     readOnly={true}
-    value={props.stdout ?? props.stderr}
+    value={props.stdout ?? props.stderr ?? props.compile_output}
   />
 );
 

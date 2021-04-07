@@ -11,5 +11,6 @@ namespace _411Project.Web.Requests.Judge0RequestConfig
         // Used for jsonResponse.[index]
         public const string Stdout = "stdout";
         public const string Stderr = "stderr";
+        public const string Compile_output = "compile_output";
     }
 }

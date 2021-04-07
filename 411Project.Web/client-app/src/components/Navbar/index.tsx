@@ -4,38 +4,29 @@ import "../../../src/Styles/Navbar.css";
 import Example from "../languageDropDown";
 import RunButton from "./RunButton";
 import RegisterModal from "../registerModal";
-import Dropdown from "../Dropdown";
+import Sidebar from "../sidebar";
+import SidebarButton from "../SidebarButton/SidebarButton";
+import NewFile from "../newFileDropdown";
 
 type NavbarInfo = {
   sourceCode: string;
   stdin: string;
   setStdout: (stdout: string) => void;
   setStderr: (stderr: string) => void;
+  setCompileOutput: (compile_output: string) => void;
   setLoading: (loading: boolean) => void;
   setLanguageName: (languageName: string) => void;
+  setFontSize: (fontSize: number) => void;
 };
 
 function Navbar(props: NavbarInfo) {
-  const [dropdown, setDropdown] = useState(false);
   const [languageId, setLanguageId] = useState(62); // 62 is Java's language_id
+  const [sidebarVisible, setSidebarVisible] = useState(false);
 
-  const onMouseEnter = () => {
-    if (window.innerWidth < 960) {
-      setDropdown(false);
-    } else {
-      setDropdown(true);
-    }
-  };
-  const onMouseLeave = () => {
-    if (window.innerWidth < 960) {
-      setDropdown(false);
-    } else {
-      setDropdown(false);
-    }
-  };
   const refreshPage = () => {
     window.location.reload();
   };
+
   return (
     <div className="ui navMenu">
       <NavLink to="/" onClick={refreshPage}>
@@ -52,25 +43,21 @@ function Navbar(props: NavbarInfo) {
         stdin={props.stdin}
         setStdout={props.setStdout}
         setStderr={props.setStderr}
+        setCompileOutput={props.setCompileOutput}
         setLoading={props.setLoading}
       />
-      {/*
-        <li
-          
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-        >
-          <a className="fileButton">
-            File <i className="fas fa-caret-down fa-fw" />
-            {dropdown && <Dropdown />}
-          </a>
-        </li>
-       <a className="item">
-          Settings <i className="fas fa-caret-down fa-fw" />
-          
-        </a>
-      */}
       <RegisterModal />
+      <NewFile />
+      <SidebarButton
+        setSidebarVisible={(sidebarVisible: boolean) => setSidebarVisible(true)}
+      />
+      <Sidebar
+        sidebarVisible={sidebarVisible}
+        setSidebarVisible={(sidebarVisible: boolean) =>
+          setSidebarVisible(false)
+        }
+        setFontSize={(fontSize: number) => props.setFontSize(fontSize)}
+      />
     </div>
   );
 }
