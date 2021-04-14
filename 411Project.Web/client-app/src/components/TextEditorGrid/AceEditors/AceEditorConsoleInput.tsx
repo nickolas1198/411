@@ -4,6 +4,7 @@ export type aceEditorConsoleInput = {
   setConsoleInput: (input: string) => void;
   editorResize: boolean;
   onResizeComplete: () => void;
+  fontSize: number;
 };
 
 const AceEditorConsoleInput = (props: aceEditorConsoleInput) => (
@@ -15,7 +16,7 @@ const AceEditorConsoleInput = (props: aceEditorConsoleInput) => (
     name="consoleInput"
     width="100%"
     height="100%"
-    fontSize={16}
+    fontSize={props.fontSize}
     showPrintMargin={false}
     wrapEnabled={true}
     highlightActiveLine={false}

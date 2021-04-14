@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid } from "semantic-ui-react";
 import FlexLayout from "flexlayout-react";
 import { json } from "./FlexLayoutConfig";
@@ -20,9 +20,16 @@ const TextEditorGrid = () => {
   const [compile_output, setCompile_output] = useState("");
   const [loading, setLoading] = useState(false);
   const [languageName, setLanguageName] = useState("java");
+  // used to rerender the AceEditorResizeable component
   const [editorResize, setEditorResize] = useState(false);
+  const [fontSize, setFontSize] = useState(14);
 
-  // This "factory" is used to generate the FlexLayout(resizeable grid)
+  useEffect(() => {
+    setEditorResize(true);
+  }, [fontSize]);
+
+  // This factory is used to generate the components within the
+  // FlexLayout(resizeable grid)
   var factory = (node: any) => {
     var component = node.getComponent();
 
@@ -35,6 +42,7 @@ const TextEditorGrid = () => {
           setEditorCode={(code: string) => setSource_code(code)}
           editorResize={editorResize}
           onResizeComplete={() => setEditorResize(false)}
+          fontSize={fontSize}
         />
       );
     } else if (component === "AceEditorConsoleInput") {
@@ -43,6 +51,7 @@ const TextEditorGrid = () => {
           setConsoleInput={(input: string) => setStdin(input)}
           editorResize={editorResize}
           onResizeComplete={() => setEditorResize(false)}
+          fontSize={fontSize}
         />
       );
     } else if (component === "AceEditorConsoleOutput") {
@@ -54,6 +63,7 @@ const TextEditorGrid = () => {
           compile_output={compile_output}
           editorResize={editorResize}
           onResizeComplete={() => setEditorResize(false)}
+          fontSize={fontSize}
         />
       );
     }
@@ -77,7 +87,6 @@ const TextEditorGrid = () => {
           }}
         >
           <Grid.Row style={{ height: "60px" }}>
-          
             <Navbar
               sourceCode={source_code}
               stdin={stdin}
@@ -90,14 +99,13 @@ const TextEditorGrid = () => {
               setLanguageName={(languageName: string) =>
                 setLanguageName(languageName)
               }
+              setFontSize={(fontSize: number) => setFontSize(fontSize)}
             />
-            
           </Grid.Row>
           <Grid.Row
             stretched
             style={{ padding: 0, height: "calc(100% - 60px)" }}
           >
-            
             <FlexLayout.Layout model={model} factory={factory} />
           </Grid.Row>
         </Grid>

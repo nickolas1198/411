@@ -85,3 +85,15 @@
 .dropdownItem{
   border-radius:2px !important;
 }
+.card{
+  background:linear-gradient(to right, #2A2A2A 1%, black) !important;
+  border-left: 2px solid black !important;
+}
+.label{
+  background:none !important;
+  color:#15cdfc !important;
+  text-align:left;
+}
+.header{
+  padding-top:30px;
+}

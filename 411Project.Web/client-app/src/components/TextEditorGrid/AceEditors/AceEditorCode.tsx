@@ -4,6 +4,7 @@ import AceEditorResizeable from "./AceEditorResizeable";
 export type aceEditorSourceCodeEditor = {
   languageName: string;
   editorResize: boolean;
+  fontSize: number;
   onResizeComplete: () => void;
   // hook setter from TextEditorGrid.tsx
   setEditorCode: (code: string) => void;
@@ -19,7 +20,7 @@ const AceEditorCode = (props: aceEditorSourceCodeEditor) => {
       name="codeWindow"
       width="100%"
       height="100%"
-      fontSize={16}
+      fontSize={props.fontSize}
       showPrintMargin={false}
       wrapEnabled={true}
       highlightActiveLine={true}
