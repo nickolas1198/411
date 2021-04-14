@@ -27,14 +27,17 @@
   .modal{
     height:350px !important;
     width:300px !important;
+    border:2px solid #15cdfc !important;
+    
   }
   .content{
     border-radius:5px;
     border: none;
-    height:350px;
+    
   }
   .header{
     text-align:center;
+    color : #15cdfc !important;
   }
   .forminput{
     font-size:18px;
