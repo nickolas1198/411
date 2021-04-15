@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Sidebar, Label } from "semantic-ui-react";
+import { Card, Sidebar, Label,} from "semantic-ui-react";
 import FontSizeDropdown from "./FontSizeDropdown/FontSizeDropdown";
 
 import "../Styles/Navbar.css";
@@ -23,10 +23,11 @@ const SidebarExampleSidebar = (props: SidebarExampleSidebarType) => {
         visible={props.sidebarVisible}
         direction="right"
       >
-        <Card.Group>
-          <Card>
-            <Label>
-              Font size
+        <Card.Group centered>
+        <Card.Header>Editor Settings</Card.Header>
+          <Card centered>
+          <Label horizontal>
+              Font size &nbsp;
               <FontSizeDropdown
                 setFontSize={(fontSize: number) => props.setFontSize(fontSize)}
               />
