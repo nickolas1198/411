@@ -5,6 +5,7 @@ export type aceEditorConsoleInput = {
   editorResize: boolean;
   onResizeComplete: () => void;
   fontSize: number;
+  theme: string;
 };
 
 const AceEditorConsoleInput = (props: aceEditorConsoleInput) => (
@@ -12,7 +13,7 @@ const AceEditorConsoleInput = (props: aceEditorConsoleInput) => (
     editorResize={props.editorResize}
     onResizeComplete={props.onResizeComplete}
     mode="text"
-    theme="solarized_dark"
+    theme={props.theme}
     name="consoleInput"
     width="100%"
     height="100%"

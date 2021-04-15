@@ -40,12 +40,30 @@ import "ace-builds/src-noconflict/snippets/swift";
 import "ace-builds/src-noconflict/mode-typescript";
 import "ace-builds/src-noconflict/snippets/typescript";
 
-// Themes
+// Themes in alphabetical order
+import "ace-builds/src-noconflict/theme-ambiance";
+import "ace-builds/src-noconflict/theme-chaos";
+import "ace-builds/src-noconflict/theme-chrome";
+import "ace-builds/src-noconflict/theme-clouds";
+import "ace-builds/src-noconflict/theme-clouds_midnight";
+import "ace-builds/src-noconflict/theme-dracula";
+import "ace-builds/src-noconflict/theme-eclipse";
+import "ace-builds/src-noconflict/theme-github";
+import "ace-builds/src-noconflict/theme-nord_dark";
 import "ace-builds/src-noconflict/theme-solarized_dark";
+import "ace-builds/src-noconflict/theme-terminal";
+import "ace-builds/src-noconflict/theme-twilight";
+import "ace-builds/src-noconflict/theme-textmate";
+import "ace-builds/src-noconflict/theme-tomorrow_night_eighties";
+import "ace-builds/src-noconflict/theme-xcode";
 
-// This is a hacky solution to make the AceEditor component rerender,
-// and more importantly redetermine where to perform text wrapping, when one
-// of it's parent components changes the 'editorResize" prop to true.
+// This is a hacky solution to make the AceEditor component rerender
+// when one of it's parent components changes the 'editorResize" prop
+// to true.
+// Used for:
+//  text wrapping
+//  font size
+//  theme
 
 // "IAceEditorProps" is a type from the component library
 type aceEditorResizeableInfo = IAceEditorProps & {
