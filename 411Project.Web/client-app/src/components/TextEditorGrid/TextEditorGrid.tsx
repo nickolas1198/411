@@ -20,13 +20,15 @@ const TextEditorGrid = () => {
   const [compile_output, setCompile_output] = useState("");
   const [loading, setLoading] = useState(false);
   const [languageName, setLanguageName] = useState("java");
+  const [fontSize, setFontSize] = useState(16);
+  const [theme, setTheme] = useState("solarized_dark");
+
   // used to rerender the AceEditorResizeable component
   const [editorResize, setEditorResize] = useState(false);
-  const [fontSize, setFontSize] = useState(14);
 
   useEffect(() => {
     setEditorResize(true);
-  }, [fontSize]);
+  }, [fontSize, theme]);
 
   // This factory is used to generate the components within the
   // FlexLayout(resizeable grid)
@@ -43,6 +45,7 @@ const TextEditorGrid = () => {
           editorResize={editorResize}
           onResizeComplete={() => setEditorResize(false)}
           fontSize={fontSize}
+          theme={theme}
         />
       );
     } else if (component === "AceEditorConsoleInput") {
@@ -52,6 +55,7 @@ const TextEditorGrid = () => {
           editorResize={editorResize}
           onResizeComplete={() => setEditorResize(false)}
           fontSize={fontSize}
+          theme={theme}
         />
       );
     } else if (component === "AceEditorConsoleOutput") {
@@ -64,6 +68,7 @@ const TextEditorGrid = () => {
           editorResize={editorResize}
           onResizeComplete={() => setEditorResize(false)}
           fontSize={fontSize}
+          theme={theme}
         />
       );
     }
@@ -100,6 +105,7 @@ const TextEditorGrid = () => {
                 setLanguageName(languageName)
               }
               setFontSize={(fontSize: number) => setFontSize(fontSize)}
+              setTheme={(theme: string) => setTheme(theme)}
             />
           </Grid.Row>
           <Grid.Row

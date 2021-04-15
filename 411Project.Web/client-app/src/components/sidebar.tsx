@@ -1,6 +1,7 @@
 import React from "react";
-import { Card, Sidebar, Label,} from "semantic-ui-react";
+import { Card, Sidebar, Label } from "semantic-ui-react";
 import FontSizeDropdown from "./FontSizeDropdown/FontSizeDropdown";
+import ThemeDropdown from "./ThemeDropdown/ThemeOptionsDropdown";
 
 import "../Styles/Navbar.css";
 
@@ -8,6 +9,7 @@ type SidebarExampleSidebarType = {
   sidebarVisible: boolean;
   setSidebarVisible: (sidebarVisible: boolean) => void;
   setFontSize: (fontSize: number) => void;
+  setTheme: (theme: string) => void;
 };
 
 const SidebarExampleSidebar = (props: SidebarExampleSidebarType) => {
@@ -24,12 +26,18 @@ const SidebarExampleSidebar = (props: SidebarExampleSidebarType) => {
         direction="right"
       >
         <Card.Group centered>
-        <Card.Header>Editor Settings</Card.Header>
+          <Card.Header>Editor Settings</Card.Header>
           <Card centered>
-          <Label horizontal>
+            <Label horizontal>
               Font size &nbsp;
               <FontSizeDropdown
                 setFontSize={(fontSize: number) => props.setFontSize(fontSize)}
+              />
+            </Label>
+            <Label horizontal>
+              Theme &nbsp;
+              <ThemeDropdown
+                setTheme={(theme: string) => props.setTheme(theme)}
               />
             </Label>
           </Card>
