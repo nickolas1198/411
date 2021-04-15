@@ -5,6 +5,7 @@ export type aceEditorSourceCodeEditor = {
   languageName: string;
   editorResize: boolean;
   fontSize: number;
+  theme: string;
   onResizeComplete: () => void;
   // hook setter from TextEditorGrid.tsx
   setEditorCode: (code: string) => void;
@@ -16,7 +17,7 @@ const AceEditorCode = (props: aceEditorSourceCodeEditor) => {
       editorResize={props.editorResize}
       onResizeComplete={props.onResizeComplete}
       mode={props.languageName}
-      theme="solarized_dark"
+      theme={props.theme}
       name="codeWindow"
       width="100%"
       height="100%"

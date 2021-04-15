@@ -7,7 +7,7 @@ type FontSizeDropdownType = {
 };
 
 const FontSizeDropdown = (props: FontSizeDropdownType) => {
-  const [dropdownFontSize, setDropdownFontSize] = useState(14);
+  const [dropdownFontSize, setDropdownFontSize] = useState(16);
 
   const handleChange = (event: any) => {
     setDropdownFontSize(event.target.textContent);

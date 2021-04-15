@@ -17,6 +17,7 @@ type NavbarInfo = {
   setLoading: (loading: boolean) => void;
   setLanguageName: (languageName: string) => void;
   setFontSize: (fontSize: number) => void;
+  setTheme: (theme: string) => void;
 };
 
 function Navbar(props: NavbarInfo) {
@@ -57,6 +58,7 @@ function Navbar(props: NavbarInfo) {
           setSidebarVisible(false)
         }
         setFontSize={(fontSize: number) => props.setFontSize(fontSize)}
+        setTheme={(theme: string) => props.setTheme(theme)}
       />
     </div>
   );
