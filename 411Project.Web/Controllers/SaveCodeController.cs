@@ -19,7 +19,6 @@ namespace _411Project.Web.Controllers
             Mediator = mediator;
         }
 
-        // TODO: seperate into two endpoints. One to get list of file Id's, another to retreive single file.
         [HttpGet("getUserFileNames")]
         public async Task<ActionResult<IEnumerable<SaveCodeDto>>> GetUserFileNames()
         {
