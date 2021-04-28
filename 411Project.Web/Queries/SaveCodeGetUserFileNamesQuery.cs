@@ -12,24 +12,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace _411Project.Web.Queries
 {
-    public class SaveCodeGetUserFilesQuery : IRequest<IEnumerable<SaveCodeGetUserFilesDto>>
+    public class SaveCodeGetUserFileNamesQuery : IRequest<IEnumerable<SaveCodeGetUserFileNamesDto>>
     {
     }
 
-    public class SaveCodeGetUserFilesQueryHandler : IRequestHandler<SaveCodeGetUserFilesQuery, IEnumerable<SaveCodeGetUserFilesDto>>
+    public class SaveCodeGetUserFileNamesQueryHandler : IRequestHandler<SaveCodeGetUserFileNamesQuery, IEnumerable<SaveCodeGetUserFileNamesDto>>
     {
         private readonly UserManager<User> _userManager;
         private readonly DataContext _dataContext;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public SaveCodeGetUserFilesQueryHandler(UserManager<User> userManager, DataContext dataContext, IHttpContextAccessor httpContextAccessor)
+        public SaveCodeGetUserFileNamesQueryHandler(UserManager<User> userManager, DataContext dataContext, IHttpContextAccessor httpContextAccessor)
         {
             _userManager = userManager;
             _dataContext = dataContext;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<IEnumerable<SaveCodeGetUserFilesDto>> Handle(SaveCodeGetUserFilesQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<SaveCodeGetUserFileNamesDto>> Handle(SaveCodeGetUserFileNamesQuery request, CancellationToken cancellationToken)
         {
             var claimUser = _httpContextAccessor.HttpContext?.User;
             var user = await _userManager.GetUserAsync(claimUser);
@@ -37,12 +37,10 @@ namespace _411Project.Web.Queries
             return await _dataContext
                 .Set<SaveCode>()
                 .Where(x => x.UserId == user.Id)
-                .Select(x => new SaveCodeGetUserFilesDto()
+                .Select(x => new SaveCodeGetUserFileNamesDto()
                 {
                     Id = x.Id,
-                    FileName = x.FileName,
-                    Code = x.Code,
-                    Language = x.Language
+                    FileName = x.FileName
                 })
                 .ToListAsync();
         }

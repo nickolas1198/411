@@ -1,7 +1,7 @@
 ﻿
 namespace _411Project.Web.Features.SaveCodeFiles
 {
-    public class SaveCodeGetUserFilesDto
+    public class SaveCodeGetUserFileReturnDto
     {
         public int Id { get; set; }
 
