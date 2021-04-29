@@ -529,3 +529,5 @@ MigrationBackup/
 
 # End of https://www.toptal.com/developers/gitignore/api/aspnetcore,react,yarn,visualstudio,visualstudiocode
 411Project.Web/SpecialAppSettings.config
+
+411Project.Web/client-app/package-lock.json

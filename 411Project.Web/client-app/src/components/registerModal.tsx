@@ -1,16 +1,65 @@
-import React, { useState, useContext, createContext } from "react";
-import { Button, Header, Modal } from "semantic-ui-react";
+import React, { useContext, useEffect, useState } from "react";
+import { Button, Header, Modal, Form } from "semantic-ui-react";
 import "../Styles/Modal.css";
-import valueContext from "./valueContext";
+import PasswordToggle from "./Hooks/PasswordToggle";
+import SignInApiCall from "../ApiCalls/SignInApiCall";
+import { UserContext } from "../Context/UserContext";
+
 function RegisterModal() {
   const [openLogin, setLoginOpen] = React.useState(false);
   const [openRegister, setRegisterOpen] = React.useState(false);
+  const [PasswordInputType, ToggleIcon] = PasswordToggle();
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [formLoading, setFormLoading] = useState(false);
+  const { user, setUser } = useContext(UserContext);
 
-  const { loggedIn, setLoggedIn } = useContext(valueContext);
+  const handleLoginSubmit = async () => {
+    try {
+      // Activate the LoadingOverlay component
+      setFormLoading(true);
+
+      let dto = {
+        Email: userEmail,
+        Password: userPassword,
+      };
+      let res = await SignInApiCall(dto);
+      setUser(true);
+      console.log("the context thingy " + user);
+
+      // force loading overlay to last at least 2 seconds
+      setTimeout(function () {
+        setFormLoading(false);
+        if (res.status === 200) {
+          // make modal go away
+          setLoginOpen(false);
+        } else {
+          alert("Please verify your email and password.");
+        }
+      }, 2000);
+    } catch (error) {
+      console.log(error);
+      // force loading overlay to last at least 2 seconds
+      setTimeout(function () {
+        setFormLoading(false);
+        alert("Server is down. Please try again later :(");
+      }, 2000);
+    }
+  };
+
+  const handleUserEmailChange = (e: any, value: any) => {
+    setUserEmail(value.value);
+  };
+
+  const handleUserPasswordChange = (e: any, value: any) => {
+    setUserPassword(value.value);
+  };
+
   function redirectToRegister() {
     setLoginOpen(false);
     setRegisterOpen(true);
   }
+
   function redirectToLogin() {
     setRegisterOpen(false);
     setLoginOpen(true);
@@ -27,43 +76,64 @@ function RegisterModal() {
         open={openLogin}
         trigger={<Button className="showModal">Sign in</Button>}
       >
-        <Modal.Header className="modalHeader">Sign In</Modal.Header>
+        <Modal.Header>Sign In</Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <Header> </Header>
-            <p>
+            <Form onSubmit={handleLoginSubmit} loading={formLoading}>
+              <Form.Input
+                name="email"
+                label="Email"
+                value={userEmail}
+                onChange={handleUserEmailChange}
+              />
+              <Form.Input
+                name="password"
+                label="Password"
+                value={userPassword}
+                onChange={handleUserPasswordChange}
+              />
+              <Button color="teal" fluid>
+                Sign In
+              </Button>
+            </Form>
+            {/* <p>
               <form>
                 <div className="formholder">
-                  <i className="fa fa-user formicons"></i>
+                  <i class="fa fa-user formicons"></i>
                   <input
                     type="text"
-                    className="forminput"
-                    id="temp"
+                    class="forminput"
+                    id="username"
                     name="name"
                     placeholder="Username"
-                    required
+                    required="required"
                   />
                 </div>
                 <div className="formholder">
-                  <i className="fa fa-lock formicons"></i>
+                  <i class="fa fa-lock formicons"></i>
+                  <span className="password-toggle-icon">{ToggleIcon}</span>
                   <input
-                    type="password"
-                    className="forminput"
+                    type={PasswordInputType}
+                    class="forminput"
                     name="password"
                     placeholder="Password"
-                    required
+                    required="required"
                   />
                 </div>
                 <div className="formholder">
-                  <input
+                   <input
                     type="submit"
                     className="loginbtn"
-                    value="Sign In "
-                    onClick={() => setLoggedIn(true)}
-                  />
+                    value="Sign In"
+                    onClick={redirectToLogin}
+                  /> 
+                  <Button color="teal" fluid>
+                    Sign In
+                  </Button>
                 </div>
               </form>
-            </p>
+            </p> */}
           </Modal.Description>
           <div className="footer">
             Don't have an account yet?{" "}
@@ -82,46 +152,37 @@ function RegisterModal() {
         open={openRegister}
         trigger={<Button className="showModal">Sign Up</Button>}
       >
-        <Modal.Header className="modalHeader">Sign Up</Modal.Header>
+        <Modal.Header>Sign Up</Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <Header> </Header>
             <p>
-              <form>
+              {/* <form>
                 <div className="formholder">
-                  <i className="fas fa-envelope formicons"></i>
+                  <i class="fa fa-user formicons"></i>
                   <input
                     type="text"
-                    className="forminput"
-                    name="email"
-                    placeholder="Email"
-                    required
-                  />
-                </div>
-                <div className="formholder">
-                  <i className="fa fa-user formicons"></i>
-                  <input
-                    type="text"
-                    className="forminput"
+                    class="forminput"
                     name="name"
                     placeholder="Username"
-                    required
+                    required="required"
                   />
                 </div>
                 <div className="formholder">
-                  <i className="fa fa-lock formicons"></i>
+                  <i class="fa fa-lock formicons"></i>
+                  <span className="password-toggle-icon">{ToggleIcon}</span>
                   <input
-                    type="password"
-                    className="forminput"
+                    type={PasswordInputType}
+                    class="forminput"
                     name="password"
                     placeholder="Password"
-                    required
+                    required="required"
                   />
                 </div>
                 <div className="formholder">
                   <input type="submit" className="loginbtn" value="Sign Up" />
                 </div>
-              </form>
+              </form> */}
             </p>
           </Modal.Description>
           <div className="footer">
