@@ -2,7 +2,6 @@ import React from "react";
 import { Card, Sidebar, Label } from "semantic-ui-react";
 import FontSizeDropdown from "./FontSizeDropdown/FontSizeDropdown";
 import ThemeDropdown from "./ThemeDropdown/ThemeOptionsDropdown";
-
 import "../Styles/Navbar.css";
 
 type SidebarExampleSidebarType = {
@@ -26,7 +25,11 @@ const SidebarExampleSidebar = (props: SidebarExampleSidebarType) => {
         direction="right"
       >
         <Card.Group centered>
-          <Card.Header>Editor Settings</Card.Header>
+          <Card.Header>Editor Settings<i 
+              className="fa fa-times closeButton"
+              aria-hidden="true"
+              onClick={() => props.setSidebarVisible(!props.sidebarVisible)}
+            ></i></Card.Header>
           <Card centered>
             <Label horizontal>
               Font size &nbsp;

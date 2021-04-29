@@ -14,7 +14,16 @@
   background-color: #1888ff;
   border-radius: 0;
 }
-
+.NavHeader{
+    color: #15cdfc !important;
+    user-select: none;
+    padding: 10px 22px;
+    padding-right:30px;
+    background-color: #000 !important;
+    border:none;
+    cursor:pointer;
+    border-radius: 4px;
+}
 .NavItem {
   color: #15cdfc !important;
   user-select: none;
@@ -96,4 +105,9 @@
 }
 .header{
   padding-top:30px;
+}
+.closeButton{
+  font-size:40px;
+  padding-left:125px;
+  cursor:pointer;
 }

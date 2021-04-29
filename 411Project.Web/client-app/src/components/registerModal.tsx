@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useState, useContext, createContext } from "react";
 import { Button, Header, Modal } from "semantic-ui-react";
 import "../Styles/Modal.css";
-import PasswordToggle from "../components/Hooks/PasswordToggle";
-
+import valueContext from "./valueContext";
 function RegisterModal() {
   const [openLogin, setLoginOpen] = React.useState(false);
   const [openRegister, setRegisterOpen] = React.useState(false);
-  const [PasswordInputType, ToggleIcon] = PasswordToggle();
 
+  const { loggedIn, setLoggedIn } = useContext(valueContext);
   function redirectToRegister() {
     setLoginOpen(false);
     setRegisterOpen(true);
@@ -16,6 +15,7 @@ function RegisterModal() {
     setRegisterOpen(false);
     setLoginOpen(true);
   }
+
   return (
     <>
       {/* Login Modal*/}
@@ -27,36 +27,40 @@ function RegisterModal() {
         open={openLogin}
         trigger={<Button className="showModal">Sign in</Button>}
       >
-        <Modal.Header>Sign In</Modal.Header>
+        <Modal.Header className="modalHeader">Sign In</Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <Header> </Header>
             <p>
               <form>
                 <div className="formholder">
-                  <i class="fa fa-user formicons"></i>
+                  <i className="fa fa-user formicons"></i>
                   <input
                     type="text"
-                    class="forminput"
+                    className="forminput"
                     id="temp"
                     name="name"
                     placeholder="Username"
-                    required="required"
+                    required
                   />
                 </div>
                 <div className="formholder">
-                  <i class="fa fa-lock formicons"></i>
-                  <span className="password-toggle-icon">{ToggleIcon}</span>
+                  <i className="fa fa-lock formicons"></i>
                   <input
-                    type={PasswordInputType}
-                    class="forminput"
+                    type="password"
+                    className="forminput"
                     name="password"
                     placeholder="Password"
-                    required="required"
+                    required
                   />
                 </div>
                 <div className="formholder">
-                  <input type="submit" className="loginbtn" value="Sign In" />
+                  <input
+                    type="submit"
+                    className="loginbtn"
+                    value="Sign In "
+                    onClick={() => setLoggedIn(true)}
+                  />
                 </div>
               </form>
             </p>
@@ -78,31 +82,40 @@ function RegisterModal() {
         open={openRegister}
         trigger={<Button className="showModal">Sign Up</Button>}
       >
-        <Modal.Header>Sign Up</Modal.Header>
+        <Modal.Header className="modalHeader">Sign Up</Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <Header> </Header>
             <p>
               <form>
                 <div className="formholder">
-                  <i class="fa fa-user formicons"></i>
+                  <i className="fas fa-envelope formicons"></i>
                   <input
                     type="text"
-                    class="forminput"
-                    name="name"
-                    placeholder="Username"
-                    required="required"
+                    className="forminput"
+                    name="email"
+                    placeholder="Email"
+                    required
                   />
                 </div>
                 <div className="formholder">
-                  <i class="fa fa-lock formicons"></i>
-                  <span className="password-toggle-icon">{ToggleIcon}</span>
+                  <i className="fa fa-user formicons"></i>
                   <input
-                    type={PasswordInputType}
-                    class="forminput"
+                    type="text"
+                    className="forminput"
+                    name="name"
+                    placeholder="Username"
+                    required
+                  />
+                </div>
+                <div className="formholder">
+                  <i className="fa fa-lock formicons"></i>
+                  <input
+                    type="password"
+                    className="forminput"
                     name="password"
                     placeholder="Password"
-                    required="required"
+                    required
                   />
                 </div>
                 <div className="formholder">
