@@ -1,14 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Header, Modal, Form } from "semantic-ui-react";
 import "../Styles/Modal.css";
-import PasswordToggle from "./Hooks/PasswordToggle";
 import SignInApiCall from "../ApiCalls/SignInApiCall";
 import { UserContext } from "../Context/UserContext";
 
 function RegisterModal() {
   const [openLogin, setLoginOpen] = React.useState(false);
   const [openRegister, setRegisterOpen] = React.useState(false);
-  const [PasswordInputType, ToggleIcon] = PasswordToggle();
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [formLoading, setFormLoading] = useState(false);
@@ -76,24 +74,30 @@ function RegisterModal() {
         open={openLogin}
         trigger={<Button className="showModal">Sign in</Button>}
       >
-        <Modal.Header>Sign In</Modal.Header>
+        <Modal.Header className = "modalHeader">Sign In</Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <Header> </Header>
             <Form onSubmit={handleLoginSubmit} loading={formLoading}>
               <Form.Input
+                placeholder = "Email"
                 name="email"
-                label="Email"
+                //label="Email"
                 value={userEmail}
                 onChange={handleUserEmailChange}
+                icon ="envelope"
+                type = "text"
               />
               <Form.Input
+                placeholder = "Password" 
                 name="password"
-                label="Password"
+                //label="Password"
                 value={userPassword}
                 onChange={handleUserPasswordChange}
+                icon = "lock"
+                type = "password"
               />
-              <Button color="teal" fluid>
+              <Button className = "loginbtn" fluid>
                 Sign In
               </Button>
             </Form>
@@ -152,12 +156,35 @@ function RegisterModal() {
         open={openRegister}
         trigger={<Button className="showModal">Sign Up</Button>}
       >
-        <Modal.Header>Sign Up</Modal.Header>
+        <Modal.Header className = "modalHeader">Sign Up</Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <Header> </Header>
-            <p>
-              {/* <form>
+            <Form onSubmit={handleLoginSubmit} loading={formLoading}>
+              <Form.Input
+                placeholder = "Email"
+                name="email"
+                //label="Email"
+                value={userEmail}
+                onChange={handleUserEmailChange}
+                icon = "envelope"
+                type = "text"
+              />
+              <Form.Input
+                placeholder = "Password"
+                name="password"
+                //label="Password"
+                value={userPassword}
+                onChange={handleUserPasswordChange}
+                icon = "lock"
+                type = "password"
+              />
+              <Button color="teal" fluid>
+                Sign Up
+              </Button>
+            </Form>
+            {/* <p>
+              <form>
                 <div className="formholder">
                   <i class="fa fa-user formicons"></i>
                   <input
@@ -182,8 +209,8 @@ function RegisterModal() {
                 <div className="formholder">
                   <input type="submit" className="loginbtn" value="Sign Up" />
                 </div>
-              </form> */}
-            </p>
+              </form> 
+            </p>*/}
           </Modal.Description>
           <div className="footer">
             Already a member?{" "}

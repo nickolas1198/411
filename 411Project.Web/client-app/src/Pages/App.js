@@ -5,7 +5,7 @@ import TextEditorGrid from "../components/TextEditorGrid/TextEditorGrid";
 import { UserContext } from "../Context/UserContext";
 
 function App() {
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(false);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

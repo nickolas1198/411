@@ -6,7 +6,7 @@ import RegisterModal from "../registerModal";
 import Sidebar from "../sidebar";
 import SidebarButton from "../SidebarButton/SidebarButton";
 import NewFile from "../newFileDropdown";
-import valueContext from "../valueContext"
+import {UserContext} from "../../Context/UserContext"
 type NavbarInfo = {
   sourceCode: string;
   stdin: string;
@@ -23,13 +23,12 @@ function Navbar(props: NavbarInfo) {
 
   const [languageId, setLanguageId] = useState(62); // 62 is Java's language_id
   const [sidebarVisible, setSidebarVisible] = useState(false);
-  const value = React.useContext(valueContext);
-
+  const { user, setUser } = React.useContext(UserContext);
   const refreshPage = () => {
     window.location.reload();
   };
 
-  if (value.loggedIn){
+  if (user){
     return (
     
       <div className="ui navMenu">

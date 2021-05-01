@@ -1,6 +1,6 @@
 import React from "react";
 const valueContext = React.createContext({
-  loggedIn: true,
+  loggedIn: false,
   setLoggedIn: (loggedIn: boolean) => {},
 });
 export default valueContext;
