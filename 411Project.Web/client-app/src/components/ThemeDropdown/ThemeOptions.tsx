@@ -10,13 +10,7 @@ const themeOptions = [
   { key: 8, value: "clouds", text: "clouds" },
   { key: 9, value: "clouds_midnight", text: "clouds_midnight" },
   { key: 10, value: "terminal", text: "terminal" },
-  { key: 11, value: "xcode", text: "xcode" },
   { key: 12, value: "textmate", text: "textmate" },
-  {
-    key: 13,
-    value: "tomorrow_night_eighties",
-    text: "tomorrow_night_eighties",
-  },
   { key: 14, value: "eclipse", text: "eclipse" },
 ];
 
