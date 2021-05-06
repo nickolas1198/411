@@ -8,7 +8,7 @@
     cursor: pointer;
     transition: all 0.4s ease-in-out;
     text-decoration: none;
-  
+    
     margin-left: 24px;
   }
   .showModal:hover{
@@ -16,61 +16,45 @@
 
   }
   .loginbtn{
-    background:#00ce81; 
-    width: 265px;
-    font-size:18px;
-    border-radius:4px;
-    border:none;
-    padding:10px;
-    cursor:pointer;
+    background:linear-gradient(to right, #67b26b, #4ca2cb) !important;
+    border: 1px solid linear-gradient(to right, #67b26b, #4ca2cb) !important;
+  }
+  .loginbtn:hover {
+    border:1px solid #1888ff !important;
   }
   .modal{
     height:350px !important;
     width:300px !important;
     border:2px solid #15cdfc !important;
+    background-color:#2c2e2e !important;
     
   }
   .content{
     border-radius:5px;
     border: none;
-    
+    background-color:#2c2e2e !important;
   }
-  .header{
+  .modalHeader{
     text-align:center;
     color : #15cdfc !important;
-  }
-  .forminput{
-    font-size:18px;
-    padding-left:40px;
-  }
-  .forminput:focus{
-    border-color: #00ce81 !important;
-  }
-  .formicons{
-    position: absolute;
-		left: 30px;
-    padding:5px;
-		font-size: 18px;
-  }
-  .formholder{
-    padding-top:20px;
+    background-color:#2c2e2e !important;
   }
   .footer{
     text-align: right;
     padding-top:10px;
     font-size:12px;
+    color: #15cdfc !important;
   }
   .redirectButton{
     font-size:12px;
     padding:0 !important;
-    background-color:white !important;
+    color: #15cdfc !important;
+    background-color:#2c2e2e !important;
     text-decoration: underline !important;
   }
-  .password-toggle-icon {
-    position: absolute;
-    font-size:18px;
-    right:30px;
-    padding:5px;
-    z-index: 1000;
-    cursor: pointer;
+::placeholder{
+  color: black !important;
+}
+.input:focus{
+  border-color: #00ce81 !important;
 }
