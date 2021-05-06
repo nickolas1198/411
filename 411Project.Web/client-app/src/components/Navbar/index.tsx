@@ -6,7 +6,7 @@ import RegisterModal from "../registerModal";
 import Sidebar from "../sidebar";
 import SidebarButton from "../SidebarButton/SidebarButton";
 import NewFile from "../newFileDropdown";
-import {UserContext} from "../../Context/UserContext"
+import { UserContext } from "../../Context/UserContext";
 type NavbarInfo = {
   sourceCode: string;
   stdin: string;
@@ -20,7 +20,6 @@ type NavbarInfo = {
 };
 
 function Navbar(props: NavbarInfo) {
-
   const [languageId, setLanguageId] = useState(62); // 62 is Java's language_id
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const { user, setUser } = React.useContext(UserContext);
@@ -28,12 +27,14 @@ function Navbar(props: NavbarInfo) {
     window.location.reload();
   };
 
-  if (user){
+  if (user) {
     return (
-    
       <div className="ui navMenu">
-        <div className = "NavHeader">
-          <h1 className="navbar-logo" onClick={refreshPage}><i className="fas fa-desktop fa-fw" />codePlay</h1>
+        <div className="NavHeader">
+          <h1 className="navbar-logo" onClick={refreshPage}>
+            <i className="fas fa-desktop fa-fw" />
+            codePlay
+          </h1>
         </div>
         <Example
           setLanguageName={props.setLanguageName}
@@ -50,7 +51,9 @@ function Navbar(props: NavbarInfo) {
         />
         <NewFile />
         <SidebarButton
-          setSidebarVisible={(sidebarVisible: boolean) => setSidebarVisible(true)}
+          setSidebarVisible={(sidebarVisible: boolean) =>
+            setSidebarVisible(true)
+          }
         />
         <Sidebar
           sidebarVisible={sidebarVisible}
@@ -62,13 +65,14 @@ function Navbar(props: NavbarInfo) {
         />
       </div>
     );
-  }
-  else {
+  } else {
     return (
-    
       <div className="ui navMenu">
-        <div className = "NavHeader">
-          <h1 className="navbar-logo" onClick={refreshPage}><i className="fas fa-desktop fa-fw" />codePlay</h1>
+        <div className="NavHeader">
+          <h1 className="navbar-logo" onClick={refreshPage}>
+            <i className="fas fa-desktop fa-fw" />
+            codePlay
+          </h1>
         </div>
         <Example
           setLanguageName={props.setLanguageName}
@@ -82,12 +86,14 @@ function Navbar(props: NavbarInfo) {
           setStderr={props.setStderr}
           setCompileOutput={props.setCompileOutput}
           setLoading={props.setLoading}
-        />  
-        
-        <NewFile />
-        <RegisterModal /> 
+        />
+
+        {/*<NewFile />*/}
+        {/*<RegisterModal />*/}
         <SidebarButton
-          setSidebarVisible={(sidebarVisible: boolean) => setSidebarVisible(true)}
+          setSidebarVisible={(sidebarVisible: boolean) =>
+            setSidebarVisible(true)
+          }
         />
         <Sidebar
           sidebarVisible={sidebarVisible}
@@ -97,11 +103,9 @@ function Navbar(props: NavbarInfo) {
           setFontSize={(fontSize: number) => props.setFontSize(fontSize)}
           setTheme={(theme: string) => props.setTheme(theme)}
         />
-        
       </div>
     );
   }
-  }
- 
+}
 
 export default Navbar;
